@@ -11,7 +11,7 @@
  * @copyright ⓒ 2016, NHN godo: Corp.
  * @link http://www.godo.co.kr
  */
-namespace Controller\Front;
+namespace Controller\Front\Main;
 
 
 
@@ -20,7 +20,7 @@ namespace Controller\Front;
  *
  * @author Jong-tae Ahn <qnibus@godo.co.kr>
  */
-class IndexController extends Controller\Front\IndexController
+class IndexController extends \Controller\Front\IndexController
 {
     /**
      * {@inheritdoc}
