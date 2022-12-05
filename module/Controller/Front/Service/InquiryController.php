@@ -28,8 +28,11 @@ class InquiryController extends \Controller\Front\Controller
     public function index()
     {
         $getData=\Request::get()->toArray();
-
-        $this->setData('labType',$getData['lab']);
+        $labType = '브레인랩';
+        if($getData['lab'] == 'beauty'){
+            $labType == '뷰티랩';
+        }
+        $this->setData('labType',$labType);
 
 
     }
