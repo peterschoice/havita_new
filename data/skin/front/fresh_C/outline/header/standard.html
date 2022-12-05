@@ -1,0 +1,83 @@
+{*** 상단 기본파일 | main/index.php ***}
+<style type="text/css">
+	#wrap{ padding-top:140px;}
+
+	#header_warp{ border:0; height:auto;}
+	#header{ position:fixed; width:100%; margin:0; left:0; right:0; background:url('../../images/header_line.gif') 0 140px repeat-x #fff; border-bottom:1px solid #e3e3e3;}
+	.agc_width{ width:1200px; margin:0 auto;}
+	#header .agc_width{ height:100px;}
+	#header.agc_active .agc_width{ height:170px;}
+
+	.agc_topbar{ background-color:#333; }
+	.agc_topbar a{ color:#fff; font-size:14px; display:block; line-height:40px; text-align:center;}
+
+	.agc_logo{ float:left;}
+	.agc_logo h1{ padding:20px 0;}
+
+	.agc_gnb{ float:left; margin-left:50px;}
+	.agc_gnb > ul{ }
+	.agc_gnb li.agc_gnb1{ float:left; position:relative; width:110px; text-align:center;}
+	.agc_gnb li.agc_gnb1 a.agc_gnba{ display:block; line-height:100px; font-size:18px; color:#57595A;}
+	.agc_gnb2{ position:absolute; top:100px; left:0; overflow:hidden; width:540px; display:none; padding-left:10px;}
+	.agc_gnb li.agc_gnb1.agc_active a.agc_gnba{ font-weight:Bold; color:#000;}
+	.agc_gnb li.agc_gnb1.agc_active:after{ content:''; display:block; position:absolute; bottom:20px; right:25px; left:25px; height:4px; background-color:#333; border-radius:10px}
+	.agc_gnb li.agc_gnb1.agc_active .agc_gnb2{ display:block;}
+	.agc_gnb2 li{ float:left; margin-right:50px;}
+	.agc_gnb2 li a{ line-height:70px; display:Block; height:70px; font-size:16px; color:#57595A;}
+	.agc_gnb2 li a:hover,
+	.agc_gnb2 li.agc_active a{ color:#333; font-weight:Bold;}
+
+	.agc_gnb_util{ float:right;}
+	.agc_gnb_util ul{ }
+	.agc_gnb_util ul li{ float:left; margin-right:30px;}
+	.agc_gnb_util ul li a{ line-height:100px; font-size:16px; color:#57595A;}
+	.agc_gnb_util ul li a:hover{ color:#333;}
+
+	.agc_megamenu{ }
+</style>
+<div id="header">
+	<p class="agc_header_line"></p>
+	<div class="agc_topbar">
+		<a href="#">
+			<span>카카오톡 플러스 친구 추가하고 프리미엄 혜택 받아가세요! &gt;</span>
+		</a>
+	</div><!-- agc_topbar -->
+	<div class="agc_width">
+		<div class="agc_logo">
+			<h1><!--{ @dataBanner('2091900581') }-->{.tag}<!--{ / }--></h1>
+		</div><!-- agc_logo -->
+		<div class="agc_gnb">
+			<ul>
+				<li class="agc_gnb1 agc_active"><a href="#" class="agc_gnba">브랜드</a></li>
+				<li class="agc_gnb1 agc_megamenu">
+					<a href="#" class="agc_gnba">전체 상품</a>
+					<ul class="agc_gnb2">
+						<li><a href="/service/inquiry.php">브레인랩</a></li><!-- li에 class="agc_active" -->
+						<li><a href="/goods/goods_view.php?goodsNo=1000000001">리버랩</a></li><!-- li에 class="agc_active" -->
+						<li><a href="/goods/goods_view.php?goodsNo=1000000002">조인트랩</a></li><!-- li에 class="agc_active" -->
+						<li><a href="/service/inquery.php?lab=beauty">뷰티랩</a></li><!-- li에 class="agc_active" -->
+					</ul>
+				</li>
+				<li class="agc_gnb1"><a href="/board/list.php?bdId=magazine" class="agc_gnba">매거진</a></li>
+				<li class="agc_gnb1"><a href="/board/list.php?bdId=event" class="agc_gnba">이벤트</a></li>
+			</ul>
+		</div><!-- agc_gnb -->
+		<div class="agc_gnb_util">
+			<ul>
+                <!--{ ? gd_is_login() === false }-->
+                <li><a href="../member/login.php">로그인</a></li>
+                <li><a href="../main/html.php?htmid=member/join_kind.html">회원가입</a>
+                    <!--<span class="accent">
+                        <span><strong>2,000 P</strong></span>
+                    </span>-->
+                </li>
+                <!--{ : }-->
+                <li><a href="../member/logout.php?returnUrl={=logoutReturnUrl}">로그아웃</a></li>
+                <!--{ / }-->
+				<li><a href="../mypage/index.php">마이페이지</a></li>
+				<li><a href="../order/cart.php">장바구니</a></li>
+			</ul>
+		</div><!-- agc_gnb_util -->
+	</div>
+</div>
+<!-- //header -->
