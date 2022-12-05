@@ -20,16 +20,16 @@ namespace Controller\Front\Service;
  *
  * @author Jong-tae Ahn <qnibus@godo.co.kr>
  */
-class InquiryController extends \Controller\Front\IndexController
+class InquiryController extends \Controller\Front\Controller
 {
     /**
      * {@inheritdoc}
      */
     public function index()
     {
-        // main/index 파일을 호출
-        // naver 정책에 의해 index 파일 무조건 해당 위치로
-        parent::index();
+        $getData=\Request::get()->toArray();
+
+        $this->setData('labType',$getData['lab']);
 
 
     }
