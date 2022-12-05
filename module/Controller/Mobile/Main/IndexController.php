@@ -11,21 +11,24 @@
  * @copyright ⓒ 2016, NHN godo: Corp.
  * @link http://www.godo.co.kr
  */
-namespace Controller\Mobile;
+namespace Controller\Mobile\Main;
+
+
 
 /**
  * 사이트 접속 페이지
  *
  * @author Jong-tae Ahn <qnibus@godo.co.kr>
  */
-class IndexController extends \Controller\Front\IndexController
+class IndexController extends \Controller\Mobile\IndexController
 {
     /**
      * {@inheritdoc}
      */
     public function index()
     {
-        //
+        // main/index 파일을 호출
+        // naver 정책에 의해 index 파일 무조건 해당 위치로
         parent::index();
 
     }
