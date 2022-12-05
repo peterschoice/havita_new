@@ -20,7 +20,7 @@ namespace Controller\Front\Service;
  *
  * @author Jong-tae Ahn <qnibus@godo.co.kr>
  */
-class InquryController extends \Controller\Front\IndexController
+class InquiryController extends \Controller\Front\IndexController
 {
     /**
      * {@inheritdoc}
