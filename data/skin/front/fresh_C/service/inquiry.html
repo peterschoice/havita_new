@@ -52,41 +52,43 @@
 			<img src="../images/pop_img.jpg" alt="">
 		</div><!-- agc_pop_img -->
 		<div class="agc_pop_text">
-			<h4>브레인랩 간편 상담 신청하기</h4>
-			<h5>브레인랩 전문 상담사가  1:1 상담을 위해 대기중입니다</h5>
+			<h4>{labType} 간편 상담 신청하기</h4>
+			<h5>{labType} 전문 상담사가  1:1 상담을 위해 대기중입니다</h5>
 			<div class="agc_pop_form">
-				<form name="frmWrite" id="frmWrite" action="./board_ps.php" method="post" enctype="multipart/form-data" class="frmWrite">
-					<input type="hidden" name="bdId" value="{=bdWrite.cfg.bdId}"/>
-					<input type="hidden" name="sno" value="{=gd_isset(req.sno)}"/>
-					<input type="hidden" name="mode" value="{=gd_isset(req.mode)}"/>
-	    			<input type="hidden" name="returnUrl" value="{=queryString}"/>
+				<form name="frmWrite" id="frmWrite" action="/board/board_ps.php" method="post" enctype="multipart/form-data" class="frmWrite">
+					<input type="hidden" name="bdId" value="qa"/>
+					<input type="hidden" name="sno" value="3" />
+					<input type="hidden" name="mode" value="write"/>
+					<input type="hidden" name="subject" value="{labType}에 상담신청이 접수되었습니다."/>
+					<input type="hidden" name="contents" value="접수내용보기"/>
+	    			<input type="hidden" name="returnUrl" value="result=ok"/>
 
-					<p><input type="text" placeholder="이름"></p>
-					<p><input type="text" placeholder="전화번호 ‘-’ 없이 입력해주세요"></p>
-					<p><input type="text" placeholder="나이"></p>
+					<p><input type="text" name="name" placeholder="이름"></p>
+					<p><input type="text" name="tel" placeholder="전화번호 ‘-’ 없이 입력해주세요"></p>
+					<p><input type="text" name="age" placeholder="나이"></p>
 					<p>
-						<select>
-							<option>성별</option>
-							<option>남자</option>
-							<option>여자</option>
+						<select name="sex">
+							<option value="">성별</option>
+							<option value="male">남자</option>
+							<option value="female">여자</option>
 						</select>
 					</p>
 					<p>
-						<select>
-							<option>상담시간</option>
-							<option>아무때나</option>
-							<option>09:00-10:00</option>
-							<option>10:00-11:00</option>
-							<option>11:00-12:00</option>
-							<option>13:00-14:00</option>
-							<option>14:00-15:00</option>
-							<option>15:00-16:00</option>
-							<option>16:00-17:00</option>
-							<option>17:00-18:00</option>
+						<select name="time">
+							<option value="">상담시간</option>
+							<option value="anytime">아무때나</option>
+							<option value="09:00-10:00">09:00-10:00</option>
+							<option value="10:00-11:00">10:00-11:00</option>
+							<option value="11:00-12:00">11:00-12:00</option>
+							<option value="13:00-14:00">13:00-14:00</option>
+							<option value="14:00-15:00">14:00-15:00</option>
+							<option value="15:00-16:00">15:00-16:00</option>
+							<option value="16:00-17:00">16:00-17:00</option>
+							<option value="17:00-18:00">17:00-18:00</option>
 						</select>
 					</p>
 					<p class="agc_chk_p">
-						<input type="checkbox"> <label>[필수] 개인정보 수집 및 마케팅 활용 동의</label> <a>자세히보기</a>
+						<input name="privacy" type="checkbox"> <label>[필수] 개인정보 수집 및 마케팅 활용 동의</label> <a>자세히보기</a>
 					</p>
 					<button type="submit">간편 상담 신청하기</button>
 				</form>
@@ -95,5 +97,7 @@
 		<p class="agc_pop_close"><img src="../images/pop_close.png" alt=""></p>
 	</div><!-- agc_pop_inner -->
 </div><!-- agc_inq_pop -->
+<script>
 
+</script>
 { # footer }
