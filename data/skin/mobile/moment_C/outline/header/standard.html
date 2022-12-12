@@ -1,0 +1,203 @@
+{*** 상단 기본파일 | main/index.php ***}
+<style type="text/css">
+	.agc_topbar{ background-color:#333; }
+	.agc_topbar a{ color:#fff; font-size:12px; display:block; line-height:40px; text-align:center;}
+
+	#header_wrap header .header_box .left_menu{ top:45px; left:10px;}
+	#header_wrap header .header_box .side_menu{ padding:17px 0px;}
+	.h_logo{ padding:13px 0; width:104px; margin:0 auto;}
+
+	.agc_header_call{ display:inline-block; height:32px; line-height:32px; border:1px solid #333; border-radius:50px; position:absolute; top:53px; right:10px; z-index:10; font-size:12px; padding:0 15px;}
+	.agc_header_call img{ margin-right:5px; display:inline-block; vertical-align:middle;}
+
+	.agc_head_menu{ position:relative; overflow-x:auto; overflow-y:visible; }
+	.agc_head_menu::-webkit-scrollbar{ display:none;}
+	.agc_head_menu::-webkit-scrollbar-thumb{ }
+	.agc_head_menu::-webkit-scrollbar-track { }
+
+
+	.agc_head_menu ul{ width:100%; height:40px; display:table; table-layout:fixed; white-space:nowrap; word-wrap:normal;}
+	.agc_head_menu .agc_hm1{ display:inline-block; padding:0 20px;}
+	.agc_head_menu .agc_hm1.agc_active{ position:relative;}
+	.agc_head_menu .agc_hm1.agc_active:after{ content:''; display:block; position:absolute; bottom:2px; right:5px; left:5px; height:3px; background-color:#333; border-radius:15px}
+	.agc_head_menu .agc_hm1 .agc_hma{ display:block; text-align:center; font-size:14px; color:#57595A; line-height:40px;}
+	.agc_head_menu .agc_hm1.agc_active .agc_hma{ font-weight:bold; color:#333;}
+	.agc_hm_con{ position:absolute; top:138px; left:0; right:0; display:none !important; z-index:5;}
+	.agc_hm_con.agc_active{ display:block !important; height:40px; background-color:#333;}
+	.agc_hm_con.agc_active li{ float:left; width:25%;}
+	.agc_hm_con.agc_active li a{ line-height:40px; display:block; color:#fff; font-size:14px; text-align:center;}
+
+	.sub_top{ display:none;}
+
+	#wrap .nav_content_box{ overflow-y:auto;}
+	#wrap nav .left_close{ right:auto; left:12px; top:59px; width:20px; background-image:url('/data/skin/mobile/moment_C/svg/images/close_icon_allmenu.svg'); width:16px; height:16px;}
+	#wrap nav .nav_bg_box .nav_box{ width:100%;}
+
+	.agc_gnb{}
+	.agc_gnb ul{ overflow:Hidden;}
+	.agc_gnb ul li{ float:left; width:25%;}
+	.agc_gnb ul li a{ display:block; text-align:center; font-size:14px; color:#57595A; line-height:40px;}
+
+	#wrap nav .nav_bg_box .nav_box .nav_iscroll_box{ padding:10px; box-sizing:border-box;}
+
+	.agc_nav_kakao{ margin-bottom:20px;}
+	.agc_nav_kakao a{ background-color:#F4DE01; color:#3B2A30; display:block; line-height:48px; height:48px; box-sizing:Border-box; text-align:center; font-size:14px; border-radius:5px; font-weight:500;}
+	.agc_nav_kakao a img{ margin-right:5px; display:inline-block; vertical-align:middle;}
+
+	.agc_nav_cate{ margin-bottom:20px;}
+	.agc_nav_cate ul{ overflow:hidden;}
+	.agc_nav_cate ul li{ float:left; width:25%; padding:0 10px; box-sizing:Border-box; text-align:center;}
+	.agc_nav_cate ul li a{ }
+	.agc_nav_cate ul li p{ font-size:14px; color:#333;}
+
+	.agc_nav_menu{ }
+	.agc_nav_menu .agc_lnb1{ }
+	.agc_nav_menu .agc_lnba{ display:block; line-height:48px; padding:0 10px; font-size:16px; color:#333; border-bottom:1px solid #ddd; cursor:pointer;}
+	.agc_nav_menu .agc_lnb2{ border-bottom:1px solid #ddd; display:none;}
+	.agc_nav_menu .agc_lnb2 a{ display:block; line-height:48px; padding:0 30px; font-size:16px; color:#57595A;}
+	.agc_megamenu{ position:relative;}
+	.agc_megamenu:after{ content:''; width:24px; height:24px; background:url('/data/skin/mobile/moment_C/svg/images/plus_btn_allmenu.svg') 50% 50% no-repeat; display:Block; position:absolute; top:12px; right:7px; z-index:-1;}
+	.agc_megamenu.agc_active .agc_lnb2{ display:block;}
+	.agc_megamenu.agc_active:after{ background-image:url('/data/skin/mobile/moment_C/svg/images/minus_btn_allmenu.svg');}
+</style>
+<div id="header_wrap">
+	<header>
+		<div class="agc_topbar">
+			<a href="#">
+				<span>카카오톡 플러스 친구 추가하고 프리미엄 혜택 받아가세요! &gt;</span>
+			</a>
+		</div><!-- agc_topbar -->
+		<div class="header_box">
+			<div class="h_logo"><!--{ @dataBanner('3669836725') }-->{.tag}<!--{ / }--></div> <!-- 로고 -->
+			<!-- 좌측 메뉴 -->
+			<ul class="left_menu">
+				<li><a href="#" class="side_menu"><span>{=__('메뉴')}</span></a></li>
+			</ul>
+			<!-- 우측 메뉴 -->
+			<a href="#" class="agc_header_call"><img src="/data/skin/mobile/moment_C/svg/images/call_icon.svg" alt="">전화상담</a>
+			<!-- 네비게이터 -->
+			<!--{ ? layout.current_page == 'y' && layout.page_name }-->
+
+			<!--{ / }-->
+			<div class="agc_head_menu">
+				<ul>
+					<li class="agc_hm1"><a href="/" class="agc_hma">홈</a></li>
+					<li class="agc_hm1">
+						<a href="/main/html.php?htmid=proc/brandstory.html" class="agc_hma">브랜드</a>
+					</li>
+					<li class="agc_hm1">
+						<p class="agc_hma agc_hm_open">전체 상품</p>
+					</li>
+					<li class="agc_hm1"><a href="/board/list.php?bdId=magazine" class="agc_hma">매거진</a></li>
+					<li class="agc_hm1"><a href="/board/list.php?bdId=event" class="agc_hma">이벤트</a></li>
+					<li class="agc_hm1"><a href="/board/list.php?bdId=event" class="agc_hma">테스트1</a></li>
+					<li class="agc_hm1"><a href="/board/list.php?bdId=event" class="agc_hma">테스트2</a></li>
+				</ul>
+			</div><!-- agc_head_menu -->
+			<ul class="agc_hm_con agc_shm3 ">
+				<li><a href="/main/html.php?htmid=service/inquiry.html">브레인랩</a></li>
+				<li><a href="/goods/goods_view.php?goodsNo=1000000001">리버랩</a></li>
+				<li><a href="/goods/goods_view.php?goodsNo=1000000002">조인트랩</a></li>
+				<li><a href="/main/html.php?htmid=service/inquiry_bck.html">뷰티랩</a></li>
+			</ul>
+
+			<!--{ ? gCurrentPageName != 'main/index' }-->
+			<div class="sub_top">
+				<div class="sub_top_left">
+					<!--{ ? gReturnUrl }-->
+					<a href="{=gReturnUrl}" class="all_page_prev">{=__('이전')}</a>
+					<!--{ : }-->
+					<a href="{=gReferer}" class="all_page_prev js_bn_back">{=__('이전')}</a>
+					<!--{ / }-->
+				</div>
+				<h2><a href="#" class="js_page_reload "><!--{ ? gPageName }-->{=gPageName}<!--{:}-->{=layout.page_name}<!--{/}--></a></h2>
+				<!--{ ? (gCurrentPageName == 'board/list' || gCurrentPageName == 'mypage/mypage_qa' || gCurrentPageName == 'mypage/mypage_goods_qa' || gCurrentPageName == 'mypage/mypage_goods_review') && bdList.cfg.auth.write == 'y'}-->
+				<div class="sub_top_right2"><a href="../board/write.php?bdId={req.bdId}&mypageFl={req.mypageFl}&goodsNo={goodsView.goodsNo}&gboard=r&noheader=y" data-toggle="modal" data-target="#popupBoard" class="board_btn">{=__('글쓰기')}</a></div>
+				<!--{ / }-->
+				<!--{ ? gCurrentPageName == 'board/view' }-->
+				<div class="sub_top_right2"><a href="../board/list.php?bdId={req.bdId}&mypageFl={req.mypageFl}" class="board_btn">{=__('목록가기')}</a></div>
+				<!--{ / }-->
+				<!--{ ? plusReviewBtn }-->
+				<div class="sub_top_right2 btn_plus_review_register"><a href="../board/plus_review_popup_write.php?mode=addPopup" class="ogl_reviewrite" data-toggle="modal" data-target="#popupBoard">{=__('리뷰등록')}</a></div>
+				<!--{ / }-->
+			</div>
+			<!--{ / }-->
+		</div>
+	</header>
+</div>
+<!-- //header_wrap -->
+<nav>
+	<div class="bg"></div>
+	<div class="left_close"></div>
+	<div class="nav_bg_box">
+		<div class="nav_box">
+			<div class="agc_topbar">
+				<a href="#">
+					<span>카카오톡 플러스 친구 추가하고 프리미엄 혜택 받아가세요! &gt;</span>
+				</a>
+			</div><!-- agc_topbar -->
+			<div class="h_logo"><!--{ @dataBanner('3669836725') }-->{.tag}<!--{ / }--></div> <!-- 로고 -->
+			<a href="#" class="agc_header_call"><img src="/data/skin/mobile/moment_C/svg/images/call_icon.svg" alt="">전화상담</a>
+			<!-- 네비게이터 -->
+			<div class="agc_gnb">
+				<ul>
+					<li><a href="../member/login.php">로그인</a></li>
+					<li><a href="../main/html.php?htmid=member/join_kind.html">회원가입</a></li>
+					<li><a href="/order/cart.php">장바구니</a></li>
+					<li><a href="/member/login.php">마이페이지</a></li>
+				</ul>
+			</div><!-- agc_gnb -->
+			<div class="nav_iscroll_box">
+				<div class="nav_content_box">
+
+					<div class="agc_nav_kakao">
+						<a href="#"><img src="/data/skin/mobile/moment_C/svg/images/kakao_f_allmenu.svg" alt="">카카오 플러스 친구 추가하기</a>
+					</div><!-- agc_nav_kakao -->
+					<div class="agc_nav_cate">
+						<ul>
+							<li>
+								<a href="/main/html.php?htmid=service/inquiry.html"><img src="../../images/nav_br.png" alt=""></a>
+								<p>브레인랩</p>
+							</li>
+							<li>
+								<a href="/goods/goods_view.php?goodsNo=1000000001"><img src="../../images/nav_rr.png" alt=""></a>
+								<p>리버랩</p>
+							</li>
+							<li>
+								<a href="/goods/goods_view.php?goodsNo=1000000002"><img src="../../images/nav_jr.png" alt=""></a>
+								<p>조인트랩</p>
+							</li>
+							<li>
+								<a href="/main/html.php?htmid=service/inquiry_bck.html"><img src="../../images/btl.png" alt=""></a>
+								<p>뷰티랩</p>
+							</li>
+						</ul>
+					</div><!-- agc_nav_cate -->
+
+					<div class="agc_nav_menu">
+						<ul>
+							<li class="agc_lnb1"><a href="/main/html.php?htmid=proc/brandstory.html" class="agc_lnba">브랜드</a></li>
+							<li class="agc_lnb1 agc_megamenu ">
+								<p class="agc_lnba">전체 상품</p>
+								<ul class="agc_lnb2">
+									<li><a href="/main/html.php?htmid=service/inquiry.html">브레인랩</a></li>
+									<li><a href="/goods/goods_view.php?goodsNo=1000000001">리버랩</a></li>
+									<li><a href="/goods/goods_view.php?goodsNo=1000000002">조인트랩</a></li>
+									<li><a href="/main/html.php?htmid=service/inquiry_bck.html">뷰티랩</a></li>
+								</ul>
+							</li>
+							<li class="agc_lnb1"><a href="/board/list.php?bdId=magazine" class="agc_lnba">매거진</a></li>
+							<li class="agc_lnb1"><a href="/board/list.php?bdId=event" class="agc_lnba">이벤트</a></li>
+						</ul>
+					</div><!-- agc_nav_menu -->
+
+				</div>
+				<!-- //nav_content_box -->
+			</div>
+		</div>
+		<!-- //nav_box -->
+	</div>
+	<!-- //nav_bg_box -->
+</nav>
+<div id="container">
+	<div id="contents_wrap">
