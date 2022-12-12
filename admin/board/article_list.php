@@ -91,9 +91,11 @@
                     <td class="width-xl">
                         <div class="form-inline">
                             <select name="replyStatus" class="form-control">
+                                <option value="">=전체=</option>
+
                                 <?php
-                                    $replyStatus = array('=전체=','상담 신청중','상담 진행중','상담 완료','상담 취소','상담 지연');
-                                    for($i = 0;$i<6;$i++){?>
+                                    $replyStatus = array('전체','상담 신청중','상담 진행중','상담 완료','상담 취소','상담 지연');
+                                    for($i = 0;$i<5;$i++){?>
                                     <option value="<?= $i ?>" <?php if ($req['replyStatus'] == $i) echo 'selected' ?>><?= $replyStatus[$i]; ?></option>
                                 <?php } ?>
                             </select>
