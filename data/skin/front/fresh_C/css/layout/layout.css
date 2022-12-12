@@ -785,6 +785,6 @@ div[class^="autocomplete-area"] ul.auto-area li:last-child { padding-bottom: 10p
 
 /* 메뉴 온 */
 .gnb_on{
-	font-weight: bold;
-	color:#000;
+	font-weight: bold!important;
+	color:#000!important;
 }
