@@ -169,6 +169,12 @@
             .each(function () {
                 $(this).attr("src", $(this).attr("src"));
             })
+
+
+		$(document).ready(function(){
+			$('.agc_gnb1').children('a').removeClass('gnb_on')
+			$('.agc_gnb1').eq(2).children('a').addClass('gnb_on')
+		});
     });
-	console.log(123123123213)
+
 </script>
