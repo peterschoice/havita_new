@@ -31,7 +31,6 @@ class DBTableField extends \Bundle\Component\Database\DBTableField
             $arrField[] = ["val" => "writerSex", 'typ' => 's', 'def' => '']; // 이름
             $arrField[] = ["val" => "writerAge", 'typ' => 'i', 'def' => '']; // 나이
             $arrField[] = ["val" => "callTime", 'typ' => 's', 'def' => '']; // 상담시간
-            $arrField[] = ["val" => "adminMemo", 'typ' => 's', 'def' => '']; // 관리자메모
         }
         return $arrField;
 
