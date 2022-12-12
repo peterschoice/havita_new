@@ -86,35 +86,20 @@
             <?php if($isShow != 'n') { ?>
             <tr class="js-if-bdGoodsPtFl">
                 <?php  if ($bdList['cfg']['bdAnswerStatusFl'] == 'y' || $bdList['cfg']['bdReplyStatusFl'] == 'y') { ?>
-                    <?php if($req['bdId'] == 'qa') { ?>
+
                     <th>처리상태</th>
                     <td class="width-xl">
                         <div class="form-inline">
                             <select name="replyStatus" class="form-control">
-                                <option value="">=전체=</option>
-
-                                <?php
-                                    $replyStatus = array('전체','상담 신청중','상담 진행중','상담 완료','상담 취소','상담 지연');
-                                    for($i = 0;$i<5;$i++){?>
-                                    <option value="<?= $i ?>" <?php if ($req['replyStatus'] == $i) echo 'selected' ?>><?= $replyStatus[$i]; ?></option>
-                                <?php } ?>
+                                <option value="<?php if ($req['replyStatus'] == null){ echo 'selected';} ?>">=전체=</option>
+                                <option value="<?php if ($req['replyStatus'] == 0){ echo 'selected';} ?>">상담 신청중</option>
+                                <option value="<?php if ($req['replyStatus'] == 1){ echo 'selected';} ?>">상담 진행중</option>
+                                <option value="<?php if ($req['replyStatus'] == 2){ echo 'selected';} ?>">상담 완료</option>
+                                <option value="<?php if ($req['replyStatus'] == 3){ echo 'selected';} ?>">상담 취소</option>
+                                <option value="<?php if ($req['replyStatus'] == 4){ echo 'selected';} ?>">상담 지연</option>
                             </select>
                         </div>
                     </td>
-                    <?php } else { ?>
-
-                    <th>답변상태</th>
-                    <td class="width-xl">
-                        <div class="form-inline">
-                            <select name="replyStatus" class="form-control">
-                                <option value="">=전체=</option>
-                                <?php foreach ($board::REPLY_STATUS_LIST as $key => $val) { ?>
-                                    <option value="<?= $key ?>" <?php if ($req['replyStatus'] == $key) echo 'selected' ?>><?= $val ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </td>
-                <?php } ?>
 
                 <?php } ?>
 
