@@ -1,0 +1,48 @@
+@charset "utf-8";
+/* CSS Document */
+			  
+#container{margin-top:0; top:0;}
+#contents .sub_content{width:100%; margin:0; padding:0;}/* 메인 */
+.main_visual{overflow:hidden; width:100%;  margin:0 0 70px 0;}
+.main_top{overflow:hidden; width:1200px; margin:0 auto;}
+.main_top_ban01,
+.main_top_ban02{float:left; width:585px; margin-left:30px;}
+.main_top_ban01{margin-left:0;}
+.main_for_you{width:1200px; margin:80px auto 0;}
+.main_for_you ul{overflow:hidden; margin-top:45px;}
+.main_for_you ul li{float:left; margin-left:30px;}
+.main_for_you ul li:first-child{margin-left:0;}
+.main_goods_cont{position:relative; margin-top:80px; min-height:840px; background:#f9f9f9;}
+.main_goods_cont .bg{position:absolute; left:0; width:100%; min-width:1450px; height:100%; overflow:hidden;  z-index:0;}
+.main_goods_cont .bg img{position:absolute; left:50%; margin-left:-1000px; }
+.main_goods_cont .bg_top{top:0;}
+.main_goods_cont .bg_top img{top:0;}
+.main_goods_cont .bg_bot{bottom:0;}
+.main_goods_cont .bg_bot img{bottom:0;}
+.main_goods_cont .goods_list {padding-bottom:90px;}
+.main_goods_cont .goods_list_cont ul li{vertical-align:top;}
+.main_goods_cont .content{width:1200px; margin:0 auto; position:relative;}
+.main_goods_cont .content .btn_goods_down_more .btn_goods_view_down_more{background:#f9f9f9;}
+.main_goods_cont .goods_tab_box .item_photo_box{border:none;}
+.main_goods_cont .goods_tab_box .item_info_cont{background:#fff; padding:15px 20px 20px; display:block;}
+.main_ban_list{width:1200px; margin:0 auto; position:relative; overflow:hidden;}
+.main_ban_list .main_ban_list_left{position:absolute; top:0; left:0; z-index:2;}
+.main_ban_list .main_ban_list_right{min-height:732px;}
+.main_ban_list .main_ban_list_right .goods_list_cont > div:first-child{width:50%; float:right;}
+.main_time_sale{margin-top:40px;}
+.main_goods_simple{margin-top:10px;}
+
+.item_hl_tab_type .goods_tab_tit li a{font-size:14px;}
+.item_hl_tab_type .goods_tab_tit li.on a{background:#8eb111; color:#fff;}
+#header .top_search .search_cont{left:0px;}
+
+
+
+.main_cont_slide{text-align:center;}
+
+.scroll_wrap{top:931px;}
+
+.gnb_on{
+    color:#000;
+    font-weight: bold;
+}

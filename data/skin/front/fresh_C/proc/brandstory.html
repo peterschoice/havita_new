@@ -65,10 +65,7 @@
 	.ci_section2_contents .brown{margin-right:60px;}
 	.ci_section2_contents .tit{color:#333; font-weight:bold;}
 
-    .agc_gnb ul .agc_gnb1:nth-of-type(1) a{
-        color:#000;
-        font-weight: bold;
-    }
+
 </style>
 
 <div class="brandstory">
@@ -205,5 +202,8 @@
 { # footer }
 <script>
     console.log('brandstory.html')
+    $(document).ready(function(){
+        $('.agc_gnb1').eq(0).find('a').addClass('gnb_on')
+    });
 
 </script>
