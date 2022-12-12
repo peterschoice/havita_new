@@ -594,14 +594,14 @@ body .rsTabs{ float:none !important; overflow:Hidden; background-color:#fff !imp
 	color:#333!important;
 	font-weight: bold!important;
 }
-/*.gnb_on:after{*/
-/*	content: '';*/
-/*	display: block;*/
-/*	position: absolute;*/
-/*	bottom: 2px;*/
-/*	right: 5px;*/
-/*	left: 5px;*/
-/*	height: 3px;*/
-/*	background-color: #333;*/
-/*	border-radius: 15px;*/
-/*}*/
+.gnb_on:after{
+	content: '';
+	display: block;
+	position: absolute;
+	bottom: 2px;
+	right: 5px;
+	left: 5px;
+	height: 3px;
+	background-color: #333;
+	border-radius: 15px;
+}
