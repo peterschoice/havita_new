@@ -788,3 +788,14 @@ div[class^="autocomplete-area"] ul.auto-area li:last-child { padding-bottom: 10p
 	font-weight: bold!important;
 	color:#000!important;
 }
+.gnb_on:after{
+	content: '';
+	display: block;
+	position: absolute;
+	bottom: 20px;
+	right: 25px;
+	left: 25px;
+	height: 4px;
+	background-color: #333;
+	border-radius: 10px;
+}
