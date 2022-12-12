@@ -215,4 +215,10 @@
 { # footer }
 <script>
     console.log('index.html')
+    $(document).ready(function(){
+        document.querySelectorAll('.agc_r_pro > a > img').forEach((x)=>{
+            x.style.width='40px'
+            x.style.height='40px'
+        })
+    });
 </script>
