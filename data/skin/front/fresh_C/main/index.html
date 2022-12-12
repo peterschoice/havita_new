@@ -5,6 +5,7 @@
     #contents .sub_content{ padding-top:141px !important;}
     .slick-prev,
     .slick-next{ top:50% !important;}
+
 </style>
 <div class="main_visual">
     {=includeWidget('proc/_slider_banner.html', 'bannerCode', '511517418')}
@@ -141,26 +142,12 @@
             {@ magazineList}
             <li>
                 <a href="/board/view.php?bdId=magazine&sno={.sno}">
-                    <img src="/data/editor/board/magazine/{.uploadFileNm}" alt="">
+                    <img src="/data/board/upload/magazine/t/{.saveFileNm}" alt="">
                     <h4>{.subject}</h4>
                     {.subSubject}</p>
                 </a>
             </li>
             {/}
-            <!--<li>
-                <a href="#">
-                    <img src="../images/ma_img2.jpg" alt="">
-                    <h4>노년기 우울증, 치매와 구분법</h4>
-                    <p>이상하게 울적하고 무기력해지는 우울증. 노년기 우울증은 이런 기분 장애와 더불어 기억력 감퇴와 지적인이상하게 울적하고 무기력해지는 우울증. 노년기 우울증은 이런 기분 장애와 더불어 기억력 감퇴와 지적인</p>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="../images/ma_img3.jpg" alt="">
-                    <h4>노년기 우울증, 치매와 구분법</h4>
-                    <p>이상하게 울적하고 무기력해지는 우울증. 노년기 우울증은 이런 기분 장애와 더불어 기억력 감퇴와 지적인이상하게 울적하고 무기력해지는 우울증. 노년기 우울증은 이런 기분 장애와 더불어 기억력 감퇴와 지적인</p>
-                </a>
-            </li>-->
         </ul>
     </div><!-- agc_pd_box -->
 </div><!-- agc_main_magazine -->
@@ -172,101 +159,41 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
         <div class="swiper review_slider">
             <ul class="swiper-wrapper">
+                {@ reviewList}
                 <li class="swiper-slide">
-                    <a href="#"><img src="../images/review_img.jpg" alt="">
+                    <a href="/board/view.php?bdId=goodsreview&sno={.sno}">
+
+                        {? .viewListImage}
+                         {.viewListImage}
+                        {:}
+                          {? .saveFileNm}
+                        <img src="/data/board/upload/goodsreview/t/{.saveFileNm}" alt="">
+                          {:}
+                          {.goodsImage}
+                          {/}
+                        {/}
                         <div class="agc_r_con">
-                            <p class="agc_r_star"><span style="width:30%;"></span></p>
-                            <p class="agc_r_tit">부모님께 선물했어요</p>
-                            <p class="agc_r_sjt">요새 부모님께서 자꾸 깜빡하시는 것 같아 너무 불안했는데 브레인랩을 보고 바로 주문해드렸습니다. 꾸준히 드시더니 머리가 많이 맑아지는 느낌이라고</p>
+                            {? .goodsPt == null }
+                            <p class="agc_r_star"><span style="width:100%"></span></p>
+                            {:}
+                            <p class="agc_r_star"><span style="width:{=(5 / .goodsPt)*100}%;"></span></p>
+                            {/}
+                            <p class="agc_r_tit">{.subject}</p>
+                            <p class="agc_r_sjt">{.subSubject}</p>
                             <p class="agc_r_write">
-                                <span class="agc_r_date">2022.09.20</span>
-                                <span class="agc_r_name">kj********</span>
+                                <span class="agc_r_date">{.regDt}</span>
+                                <span class="agc_r_name">{.writeNm}</span>
                             </p>
                         </div><!-- agc_r_con -->
                     </a>
                     <div class="agc_r_pro">
-                        <a href="#">
-                            <img src="../images/review_pro1.jpg" alt="">
-                            <span>해비타 브레인랩 포스파티딜세린</span>
+                        <a href="/goods/goods_view.php?goodsNo={.goodsNo}">
+                            {.goodsImage}
+                            <span>{.goodsNm}</span>
                         </a>
                     </div><!-- agc_r_pro -->
                 </li>
-                <li class="swiper-slide">
-                    <a href="#"><img src="../images/review_img.jpg" alt="">
-                        <div class="agc_r_con">
-                            <p class="agc_r_star"><span style="width:30%;"></span></p>
-                            <p class="agc_r_tit">부모님께 선물했어요</p>
-                            <p class="agc_r_sjt">요새 부모님께서 자꾸 깜빡하시는 것 같아 너무 불안했는데 브레인랩을 보고 바로 주문해드렸습니다. 꾸준히 드시더니 머리가 많이 맑아지는 느낌이라고</p>
-                            <p class="agc_r_write">
-                                <span class="agc_r_date">2022.09.20</span>
-                                <span class="agc_r_name">kj********</span>
-                            </p>
-                        </div><!-- agc_r_con -->
-                    </a>
-                    <div class="agc_r_pro">
-                        <a href="#">
-                            <img src="../images/review_pro1.jpg" alt="">
-                            <span>해비타 브레인랩 포스파티딜세린</span>
-                        </a>
-                    </div><!-- agc_r_pro -->
-                </li>
-                <li class="swiper-slide">
-                    <a href="#"><img src="../images/review_img.jpg" alt="">
-                        <div class="agc_r_con">
-                            <p class="agc_r_star"><span style="width:30%;"></span></p>
-                            <p class="agc_r_tit">부모님께 선물했어요</p>
-                            <p class="agc_r_sjt">요새 부모님께서 자꾸 깜빡하시는 것 같아 너무 불안했는데 브레인랩을 보고 바로 주문해드렸습니다. 꾸준히 드시더니 머리가 많이 맑아지는 느낌이라고</p>
-                            <p class="agc_r_write">
-                                <span class="agc_r_date">2022.09.20</span>
-                                <span class="agc_r_name">kj********</span>
-                            </p>
-                        </div><!-- agc_r_con -->
-                    </a>
-                    <div class="agc_r_pro">
-                        <a href="#">
-                            <img src="../images/review_pro1.jpg" alt="">
-                            <span>해비타 브레인랩 포스파티딜세린</span>
-                        </a>
-                    </div><!-- agc_r_pro -->
-                </li>
-                <li class="swiper-slide">
-                    <a href="#"><img src="../images/review_img.jpg" alt="">
-                        <div class="agc_r_con">
-                            <p class="agc_r_star"><span style="width:30%;"></span></p>
-                            <p class="agc_r_tit">부모님께 선물했어요</p>
-                            <p class="agc_r_sjt">요새 부모님께서 자꾸 깜빡하시는 것 같아 너무 불안했는데 브레인랩을 보고 바로 주문해드렸습니다. 꾸준히 드시더니 머리가 많이 맑아지는 느낌이라고</p>
-                            <p class="agc_r_write">
-                                <span class="agc_r_date">2022.09.20</span>
-                                <span class="agc_r_name">kj********</span>
-                            </p>
-                        </div><!-- agc_r_con -->
-                    </a>
-                    <div class="agc_r_pro">
-                        <a href="#">
-                            <img src="../images/review_pro1.jpg" alt="">
-                            <span>해비타 브레인랩 포스파티딜세린</span>
-                        </a>
-                    </div><!-- agc_r_pro -->
-                </li>
-                <li class="swiper-slide">
-                    <a href="#"><img src="../images/review_img.jpg" alt="">
-                        <div class="agc_r_con">
-                            <p class="agc_r_star"><span style="width:30%;"></span></p>
-                            <p class="agc_r_tit">부모님께 선물했어요</p>
-                            <p class="agc_r_sjt">요새 부모님께서 자꾸 깜빡하시는 것 같아 너무 불안했는데 브레인랩을 보고 바로 주문해드렸습니다. 꾸준히 드시더니 머리가 많이 맑아지는 느낌이라고</p>
-                            <p class="agc_r_write">
-                                <span class="agc_r_date">2022.09.20</span>
-                                <span class="agc_r_name">kj********</span>
-                            </p>
-                        </div><!-- agc_r_con -->
-                    </a>
-                    <div class="agc_r_pro">
-                        <a href="#">
-                            <img src="../images/review_pro1.jpg" alt="">
-                            <span>해비타 브레인랩 포스파티딜세린</span>
-                        </a>
-                    </div><!-- agc_r_pro -->
-                </li>
+                {/}
             </ul>
         </div>
         <div class="swiper-button-next"></div>
@@ -286,3 +213,6 @@
 </div><!-- agc_main_review -->
 
 { # footer }
+<script>
+    console.log('index.html')
+</script>
