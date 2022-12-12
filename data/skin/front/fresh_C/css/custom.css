@@ -152,7 +152,9 @@ h1,h2,h3,h4,h5,h6{ line-height:1.3; font-weight:500;}
 .board_search_box .btn_board_search{ width:53px; font-size:0; background:url('../images/search_icon.svg') 8px 50% no-repeat !important; border-left:0 !important; border-radius:0 5px 5px 0; padding-right:24px !important;}
 
 .sub_content{ padding-top:100px;}
-agc_r_pro > a > img{
+
+
+.agc_r_pro > a > img{
 	width:40px!important;
 	height:40px!important;
 	margin-right:10px;
