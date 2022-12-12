@@ -86,21 +86,36 @@
             <?php if($isShow != 'n') { ?>
             <tr class="js-if-bdGoodsPtFl">
                 <?php  if ($bdList['cfg']['bdAnswerStatusFl'] == 'y' || $bdList['cfg']['bdReplyStatusFl'] == 'y') { ?>
+                    <?php if($req['bdId'] == 'qa') { ?>
                     <th>처리상태</th>
                     <td class="width-xl">
                         <div class="form-inline">
                             <select name="replyStatus" class="form-control">
-                                <option value="">=전체=</option>
-
                                 <?php
-                                    $replyStatus = array('상담 신청중','상담 진행중','상담 완료','상담 취소','상담 지연');
-                                    for($i = 0;$i<5;$i++){?>
+                                    $replyStatus = array('=전체=','상담 신청중','상담 진행중','상담 완료','상담 취소','상담 지연');
+                                    for($i = 0;$i<6;$i++){?>
                                     <option value="<?= $i ?>" <?php if ($req['replyStatus'] == $i) echo 'selected' ?>><?= $replyStatus[$i]; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
                     </td>
+                    <?php } else { ?>
+
+                    <th>답변상태</th>
+                    <td class="width-xl">
+                        <div class="form-inline">
+                            <select name="replyStatus" class="form-control">
+                                <option value="">=전체=</option>
+                                <?php foreach ($board::REPLY_STATUS_LIST as $key => $val) { ?>
+                                    <option value="<?= $key ?>" <?php if ($req['replyStatus'] == $key) echo 'selected' ?>><?= $val ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </td>
                 <?php } ?>
+
+                <?php } ?>
+
                 <?php if ($bdList['cfg']['bdGoodsPtFl'] == 'y') { ?>
                     <th>평점</th>
                     <td>
@@ -269,7 +284,7 @@
             <?php  if ($bdList['cfg']['bdAnswerStatusFl'] == 'y' || $bdList['cfg']['bdReplyStatusFl'] == 'y') { ?>
                 <th class="width-sm">답변일</th>
             <?php } ?>
-            <th class="width-sm">수정/답변</th>
+            <th class="width-sm">답변</th>
             <?php } ?>
         </tr>
         </thead>
@@ -384,9 +399,11 @@
                         <a onclick="btnModifyWrite('<?= $req['bdId'] ?>', <?= $val['sno'] ?>);"
                            class="btn btn-white btn-sm">수정</a>
                         <?php }?>
+                        <?php if($req['bdId'] != 'qa'){ ?>
                         <?php if(!$val['adminFl'] && $val['auth']['reply'] == 'y') {?>
-                        <a onclick="btnReplyWrite('<?= $req['bdId'] ?>',<?= $val['sno'] ?>);"
+                        <a style="display:none" onclick="btnReplyWrite('<?= $req['bdId'] ?>',<?= $val['sno'] ?>);"
                            class="btn  btn-white btn-sm">답변</a>
+                        <?php }?>
                         <?php }?>
                     </td>
                 </tr>
@@ -447,8 +464,6 @@
         </div>
     </div>
     <script>
-
-
 
 
         function writeArticle(sno) {
