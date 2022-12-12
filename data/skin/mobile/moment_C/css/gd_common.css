@@ -609,3 +609,7 @@ li.agc_hm1{
 	background-color: #333;
 	border-radius: 15px;
 }
+.agc_r_img_img{
+	object-fit: contain;
+	display: block;
+}
