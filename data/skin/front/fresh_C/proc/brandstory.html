@@ -203,7 +203,8 @@
 <script>
     console.log('brandstory.html')
     $(document).ready(function(){
-        $('.agc_gnb1').eq(0).find('a').addClass('gnb_on')
+        $('.agc_gnb1').find('a').removeClass('gnb_on')
+        $('.agc_gnb1').eq(1).find('a').addClass('gnb_on')
     });
 
 </script>
