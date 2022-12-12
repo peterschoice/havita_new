@@ -1,0 +1,174 @@
+{*** 목록 | list.php ***}
+<style type="text/css">
+	.board_list_gallery ul{ margin-left:-2%; overflow:hidden;}
+	.board_list_gallery ul li{ float:left; width:31.333333333333% !important; height:380px !important; margin-left:2%; margin-bottom:60px; display:block;}
+	.board_list_gallery .gallery_cont{ padding:0 !important;}
+	.board_list_gallery .board_img{ border:0;}
+	.board_list_gallery .board_img a img{ width:100% !important; border-radius:5px; border:0;}
+
+	.gallery_info_cont .board_tit{ line-height:1.1; margin:20px 0 10px;}
+	.gallery_info_cont .board_tit strong{ font-size:20px !important; color:#333 !important; font-weight:normal !important;}
+	.agc_board_sjt{ font-size:18px; color:#57595A; line-height:1.2; overflow:hidden; text-overflow:ellipsis; -webkit-line-clamp:2; display:-webkit-box; -webkit-box-orient:vertical;}
+
+	.board_search_box{ display:none !important;}
+</style>
+
+<!--{?bdList.cfg.bdHeader && !inList}-->
+<div class="addition_zone">
+	<p>{=bdList.cfg.bdHeader}</p>
+</div>
+<!--{/}-->
+<div class="board_zone_sec">
+	<div class="board_zone_tit">
+		<h2 class="agc_m_tit">{=__(bdList.cfg.bdNm)}</h2>
+		<div class="agc_m_stit">해비타가 제공하는 믿을 수 있는 건강 정보</div>
+	</div>
+
+	<div class="board_zone_cont">
+		<div class="board_zone_list">
+			<!--{ ? bdList.list }-->
+			<div class="board_list_gallery">
+				<ul>
+					<!--{ @ bdList.list }-->
+					<li style="width:{100/bdList.cfg.bdListColsCount}%">
+						<div class="gallery_cont">
+							<div class="board_img">
+								<a href="javascript:gd_btn_view('{req.bdId}',{.sno} , '{.auth.view}')">
+									<img src="{.viewListImage}" width="{bdList.cfg.bdListImgWidth}" height="{bdList.cfg.bdListImgHeight}" class="js_image_load" alt="{.imageTitle}"/>
+								</a>
+							</div>
+							<div class="gallery_info_cont">
+								<!--{ ? bdList.cfg.bdGoodsPtFl == 'y' }-->
+								<div class="rating_star_box">
+									<span class="rating_star">
+										<span style="width:{.goodsPtPer}%;">{=__('별 다섯개중 다섯개')}</span>
+									</span>
+								</div>
+								<!--{/}-->
+
+								<div class="board_tit">
+									<!--{ ? bdList.cfg.bdCategoryFl == 'y'}--><em>[{.category}]</em><!--{/}-->
+									<a href="javascript:gd_btn_view('{req.bdId}',{.sno} , '{.auth.view}')">
+										<!--{ ? .isSecret == 'y' }-->
+										<img src="{bdList.cfg.iconImage.secret.url}" alt="{=__('비밀글')}" align=absmiddle>
+										<!--{ / }-->
+										<strong>{.subject}
+											<!--{? bdList.cfg.bdMemoFl == 'y' && .memoCnt>0}-->
+											({.memoCnt})
+											<!--{ / }-->
+										</strong>
+									</a>
+									<!--{ ? .isFile == 'y' }-->
+									<img src="{bdList.cfg.iconImage.attach_file.url}" alt="{=__('파일첨부 있음')}"/>
+									<!--{/}-->
+									<!--{ ? .isImage == 'y' }-->
+									<img src="{bdList.cfg.iconImage.attach_img.url}" alt="{=__('이미지첨부 있음')}"/>
+									<!--{/}-->
+									<!--{ ? .isNew == 'y' }-->
+									<img src="{bdList.cfg.iconImage.new.url}" alt="{=__('신규 등록글')}"/>
+									<!--{/}-->
+									<!--{ ? .isHot == 'y' }-->
+									<img src="{bdList.cfg.iconImage.hot.url}" alt="{=__('인기글')}"/>
+									<!--{/}-->
+								</div>
+
+								<div class="agc_board_sjt">
+									{=gd_html_cut(gd_remove_tag(.contents),50,'...')}
+								</div><!-- agc_board_sjt -->
+							</div>
+							<!-- //gallery_info_cont -->
+						</div>
+						<!-- //gallery_cont -->
+					</li>
+					<!--{/}-->
+				</ul>
+			</div>
+			<!--{:}-->
+			<div class="board_list_gallery agc_no_data">{=__('게시글이 존재하지 않습니다.')}</div>
+			<!--{/}-->
+			<!-- //board_list_gallery -->
+
+			{bdList.pagination}
+			<!-- //pagination -->
+
+			<div class="board_search_box">
+				<form name="frmList" id="frmList" action="list.php" method="get">
+					<input type="hidden" name="bdId" value="{bdList.cfg.bdId}"/>
+					<input type="hidden" name="memNo" value="{req.memNo}"/>
+					<input type="hidden" name="noheader" value="{req.noheader}"/>
+					<input type="hidden" name="mypageFl" value="{mypageFl}"/>
+
+					<!--{ ? bdList.cfg.bdCategoryFl == 'y'}-->
+					{=gd_select_box('category', 'category', bdList.cfg.arrCategory, null, gd_isset(req.category), __('선택'), 'style="width: 80px;"','chosen-select')}
+					<!--{/}-->
+					<select class="chosen-select" name="searchField">
+						<option value="subject"
+						<!--{ ? req.searchField == 'subject'}-->selected<!--{/}--> >{=__('제목')}</option>
+						<option value="contents"
+						<!--{ ? req.searchField == 'contents'}-->selected<!--{/}--> >{=__('내용')}</option>
+						<option value="writerNm"
+						<!--{ ? req.searchField == 'writerNm'}-->selected<!--{/}--> >{=__('작성자')}</option>
+					</select>
+
+					<input type="text" class="text" name="searchWord" value="{=req.searchWord}"/>
+					<button class="btn_board_search"><em>{=__('검색')}</em></button>
+				</form>
+			</div>
+			<!-- //board_search_box -->
+
+		</div>
+		<!-- //board_zone_list -->
+		<!--{? !inList && bdList.cfg.auth.write == 'y'}-->
+		<div class="btn_right_box">
+			<button type="button" class="btn_write" onclick="javascript:gd_btn_write('{req.bdId}')"><strong>{=__('글쓰기')}</strong></button>
+		</div>
+		<!--{/}-->
+	</div>
+	<!-- //board_zone_cont -->
+
+</div>
+<!-- //board_zone_sec -->
+<!--{?bdList.cfg.bdFooter && !inList}-->
+<div class="addition_zone">
+	<p>{=bdList.cfg.bdFooter}</p>
+</div>
+<!--{/}-->
+
+<form id="frmWritePassword">
+	<div id="lyPassword" class="dn layer_wrap password_layer" style="height: 226px">
+		<div class="layer_wrap_cont">
+			<div class="ly_tit">
+				<h4>{=__('비밀번호 인증')}</h4>
+			</div>
+			<div class="ly_cont">
+				<div class="scroll_box">
+					<p>{=__('비밀번호를 입력해 주세요.')}</p>
+					<input type="password" name="writerPw" class="text"/>
+				</div>
+				<!-- // -->
+				<div class="btn_center_box">
+					<button type="button" class="btn_ly_password js_submit"><strong>{=__('확인')}</strong></button>
+				</div>
+			</div>
+			<!-- //ly_cont -->
+			<a href="#close" class="ly_close layer_close"><img src="../../../img/common/layer/btn_layer_close.png" alt="{=__('닫기')}"></a>
+		</div>
+		<!-- //layer_wrap_cont -->
+	</div>
+	<!-- //layer_wrap -->
+</form>
+
+<div id="layerDim" class="dn">&nbsp;</div>
+<script type="text/javascript" src="\{=c.PATH_SKIN}js/gd_board_list.js" charset="utf-8"></script>
+<script>
+    $(document).ready(function () {
+        $('img.js_image_load').error(function () {
+            $(this).css('background', 'url("img/etc/noimg.png") no-repeat center center');
+            $(this).attr('src', '../../../img/etc/blank.gif');
+        })
+            .each(function () {
+                $(this).attr("src", $(this).attr("src"));
+            })
+    });
+	console.log(123123123213)
+</script>
