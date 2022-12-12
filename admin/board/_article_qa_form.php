@@ -76,9 +76,9 @@ include '_article_detail.php';
             <td>
                 <select name="replyStatus" class="form-control">
                     <?php
-                    foreach ($listReplyStatus as $key => $val) { ?>
-                        <option
-                            value="<?= $key ?>" <?php if ($bdView['data']['replyStatus'] == $key) echo 'selected' ?>><?= $val ?></option>
+                    $replyStatus = array('상담 신청중','상담 진행중','상담 완료','상담 취소','상담 지연');
+                    for($i = 0;$i<5;$i++){?>
+                        <option value="<?= $i ?>" <?php if ($bdWrite['data']['replyStatus'] == $i) echo 'selected' ?>><?= $replyStatus[$i]; ?></option>
                     <?php } ?>
                 </select>
             </td>
