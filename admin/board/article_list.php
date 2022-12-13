@@ -93,7 +93,7 @@
                     <td class="width-xl">
                         <div class="form-inline">
                             <select name="replyStatus" class="form-control">
-                                <option value="" <?php if ($req['replyStatus'] == ''){ echo 'selected';} ?>>전체보기</option>
+                                <option value="">전체보기</option>
                                 <option value="0" <?php if ($req['replyStatus'] == 0){ echo 'selected';} ?>>상담 신청중</option>
                                 <option value="1" <?php if ($req['replyStatus'] == 1){ echo 'selected';} ?>>상담 진행중</option>
                                 <option value="2" <?php if ($req['replyStatus'] == 2){ echo 'selected';} ?>>상담 완료</option>
