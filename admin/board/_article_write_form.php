@@ -678,7 +678,7 @@
             <?php
         }
         ?>
-        <tr   <?php if($bdWrite['cfg']['bdId'] != 'qa'){ echo 'style="display:none;"';}?>
+        <tr   <?php if($bdWrite['cfg']['bdId'] != 'qa'){ echo 'style="display:none;"';}?> >
             <th class="require">내용</th>
             <td>
                 <div>
