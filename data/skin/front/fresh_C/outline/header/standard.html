@@ -48,14 +48,14 @@
 		</div><!-- agc_logo -->
 		<div class="agc_gnb">
 			<ul>
-				<li class="agc_gnb1 agc_active"><a href="#" class="agc_gnba">브랜드</a></li>
+				<li class="agc_gnb1"><a href="/main/html.php?htmid=proc/brandstory.html" class="agc_gnba">브랜드</a></li>
 				<li class="agc_gnb1 agc_megamenu">
 					<a href="#" class="agc_gnba">전체 상품</a>
 					<ul class="agc_gnb2">
 						<li><a href="/service/inquiry.php">브레인랩</a></li><!-- li에 class="agc_active" -->
+						<li><a href="/service/inquiry.php?lab=beauty">뷰티랩</a></li><!-- li에 class="agc_active" -->
 						<li><a href="/goods/goods_view.php?goodsNo=1000000001">리버랩</a></li><!-- li에 class="agc_active" -->
 						<li><a href="/goods/goods_view.php?goodsNo=1000000002">조인트랩</a></li><!-- li에 class="agc_active" -->
-						<li><a href="/service/inquiry.php?lab=beauty">뷰티랩</a></li><!-- li에 class="agc_active" -->
 					</ul>
 				</li>
 				<li class="agc_gnb1"><a href="/board/list.php?bdId=magazine" class="agc_gnba">매거진</a></li>
@@ -66,7 +66,7 @@
 			<ul>
                 <!--{ ? gd_is_login() === false }-->
                 <li><a href="../member/login.php">로그인</a></li>
-                <li><a href="../main/html.php?htmid=member/join_kind.html">회원가입</a>
+                <li><a href="../member/join_kind.php">회원가입</a>
                     <!--<span class="accent">
                         <span><strong>2,000 P</strong></span>
                     </span>-->
@@ -75,7 +75,7 @@
                 <li><a href="../member/logout.php?returnUrl={=logoutReturnUrl}">로그아웃</a></li>
                 <!--{ / }-->
 				<li><a href="../mypage/index.php">마이페이지</a></li>
-				<li><a href="../order/cart.php">장바구니</a></li>
+				<!--<li><a href="../order/cart.php">장바구니</a></li>-->
 			</ul>
 		</div><!-- agc_gnb_util -->
 	</div>
