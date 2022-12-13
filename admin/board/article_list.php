@@ -183,7 +183,7 @@
                                 전화번호
                             </option>
                             <option
-                                value="adminMemo" <?php if ($req['searchField'] == 'adminMemo') echo 'selected' ?>>
+                                value="adminMemo" <?php if ($req['searchField'] == 'answerContents') echo 'selected' ?>>
                                 관리자메모
                             </option>
 
