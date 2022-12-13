@@ -14,7 +14,7 @@
 namespace Controller\Front\Service;
 
 
-
+use Request;
 /**
  * 사이트 접속 페이지
  *
@@ -27,13 +27,18 @@ class InquiryController extends \Controller\Front\Controller
      */
     public function index()
     {
+
         $getData=\Request::get()->toArray();
         $labType = '브레인랩';
+        $lab = 'brain';
         if($getData['lab'] == 'beauty'){
-            $labType == '뷰티랩';
+            $labType = '뷰티랩';
+            $lab = 'beauty';
         }
         $this->setData('labType',$labType);
+        $this->setData('lab',$lab);
 
-
+        $member=\Session::get('member');
+        $this->setData('memNm',$member['memNm']);
     }
 }
