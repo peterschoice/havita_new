@@ -507,7 +507,7 @@ html.agc_active{ overflow:hidden;}
 .agc_mp_tab ul li:nth-child(1).agc_active p{ background-color:#004876;}
 .agc_mp_tab ul li:nth-child(2).agc_active p{ background-color:#892C27;}
 .agc_mp_tab ul li:nth-child(3).agc_active p{ background-color:#3A5D45;}
-.agc_mp_tab ul li:nth-child(4).agc_active p{ background-color:##D3807C;}
+.agc_mp_tab ul li:nth-child(4).agc_active p{ background-color:#D3807C;}
 .agc_mp_con{ margin-top:20px;}
 .agc_mp_inner{ background-color:#fff; box-shadow:3px 3px 3px rgba(0,0,0,0.05);}
 .agc_mp_con.agc_active{ display:block;}
