@@ -1,4 +1,6 @@
-<?php if($bdList['cfg']['bdId'] == 'qa') { ?>
+<?php if($bdList['cfg']['bdId'] == 'qa') {
+
+    gd_debug($req) ?>
 
 <div class="page-header js-affix">
     <h3>상담 리스트 관리
@@ -91,12 +93,12 @@
                     <td class="width-xl">
                         <div class="form-inline">
                             <select name="replyStatus" class="form-control">
-                                <option value="<?php if ($req['replyStatus'] == null){ echo 'selected';} ?>">=전체=</option>
-                                <option value="<?php if ($req['replyStatus'] == 0){ echo 'selected';} ?>">상담 신청중</option>
-                                <option value="<?php if ($req['replyStatus'] == 1){ echo 'selected';} ?>">상담 진행중</option>
-                                <option value="<?php if ($req['replyStatus'] == 2){ echo 'selected';} ?>">상담 완료</option>
-                                <option value="<?php if ($req['replyStatus'] == 3){ echo 'selected';} ?>">상담 취소</option>
-                                <option value="<?php if ($req['replyStatus'] == 4){ echo 'selected';} ?>">상담 지연</option>
+                                <option value="" <?php if ($req['replyStatus'] == ''){ echo 'selected';} ?>>전체보기</option>
+                                <option value="0" <?php if ($req['replyStatus'] == 0){ echo 'selected';} ?>>상담 신청중</option>
+                                <option value="1" <?php if ($req['replyStatus'] == 1){ echo 'selected';} ?>>상담 진행중</option>
+                                <option value="2" <?php if ($req['replyStatus'] == 2){ echo 'selected';} ?>>상담 완료</option>
+                                <option value="3" <?php if ($req['replyStatus'] == 3){ echo 'selected';} ?>>상담 취소</option>
+                                <option value="4" <?php if ($req['replyStatus'] == 4){ echo 'selected';} ?>>상담 지연</option>
                             </select>
                         </div>
                     </td>
