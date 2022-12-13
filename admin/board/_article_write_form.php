@@ -510,9 +510,12 @@
                 </td>
             </tr>
         <?php } ?>
-        <?php
-        if ($bdWrite['cfg']['bdMobileFl'] == 'y') {
-            ?>
+            <tr>
+                <th>상담시간</th>
+                <td><input type="text" name="writerMobile"
+                           value="<?= gd_isset($bdWrite['data']['callTime']) ?>"
+                           class="form-control"/></td>
+            </tr>
             <tr>
                 <th>휴대폰</th>
                 <td><input type="text" name="writerMobile"
@@ -520,7 +523,6 @@
                            class="form-control"/></td>
             </tr>
             <?php
-        }
         if ($bdWrite['cfg']['bdEmailFl'] == 'y') {
             ?>
             <tr>
@@ -676,7 +678,7 @@
             <?php
         }
         ?>
-        <tr>
+        <tr   <?php if($bdWrite['cfg']['bdId'] != 'qa'){ echo 'style="display:none;"';?>
             <th class="require">내용</th>
             <td>
                 <div>
@@ -705,6 +707,17 @@
 
             </td>
         </tr>
+
+        <tr>
+            <th class="require">답변</th>
+            <td>
+                <div class="mgt5">
+                    <textarea name="answerContents" id="editor" rows="10" style="width:98%; height:412px; "><?= gd_isset($bdWrite['data']['answerContents']); ?></textarea>
+                </div>
+
+            </td>
+        </tr>
+
     </table>
     <?php if($req['popupMode'] !='yes') { // CRM 팝업모드가 아닐 경우 ?>
     <div class="text-center">
