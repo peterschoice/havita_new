@@ -7,7 +7,7 @@ namespace Controller\Front\Member;
  *
  * @author Jong-tae Ahn <qnibus@godo.co.kr>
  */
-class JoinKindController extends \Bundle\Controller\Front\Member\JoinController
+class JoinKindController extends \Bundle\Controller\Front\Member\JoinMethodController
 {
     /**
      * {@inheritdoc}
