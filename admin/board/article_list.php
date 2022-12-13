@@ -349,7 +349,7 @@
                         } ?>
                         <?= $val['writer'] . $aTagClose ?>
                     </td>
-                    <td><?= $val['regDate'] ?></td>
+                    <td><?= $val['regDt'] ?></td>
                     <td><?= $val['modDt'] ?></td>
                     <td><?= $val['writerSex'] ?></td>
                     <td><?= $val['writerAge'] ?></td>
