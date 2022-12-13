@@ -35,7 +35,7 @@
 
 <div class="agc_inquiry_wrap">
 	<div class="brainlab_pc_contents">
-		{? labType == 'beauty'}
+		{? lab == 'beauty'}
 		<img src="../images/havita_beautylab_pc.jpg" alt="">
 		{ : }
 		<img src="../images/havita_brainlab_pc.jpg" alt="">
@@ -60,21 +60,23 @@
 					<input type="hidden" name="sno" value="3" />
 					<input type="hidden" name="mode" value="write"/>
 					<input type="hidden" name="subject" value="{labType}에 상담신청이 접수되었습니다."/>
+					<input type="hidden" name="labType" value="{labType}"/>
+					<input type="hidden" name="subSubject" value="{labType}"/>
 					<input type="hidden" name="contents" value="접수내용보기"/>
-	    			<input type="hidden" name="returnUrl" value="result=ok"/>
+	    			<input type="hidden" name="returnUrl" value="{lab}"/>
 
-					<p><input type="text" name="name" placeholder="이름"></p>
-					<p><input type="text" name="tel" placeholder="전화번호 ‘-’ 없이 입력해주세요"></p>
-					<p><input type="text" name="age" placeholder="나이"></p>
+					<p><input type="text" name="writerNm" placeholder="이름" required="required"></p>
+					<p><input type="text" name="writerMobile" class="phone-number-check" placeholder="전화번호 ‘-’ 없이 입력해주세요" required="required"></p>
+					<p><input type="text" name="writerAge" class="number-check" placeholder="나이" required="required"></p>
 					<p>
-						<select name="sex">
+						<select name="writerSex" required="required">
 							<option value="">성별</option>
 							<option value="male">남자</option>
 							<option value="female">여자</option>
 						</select>
 					</p>
 					<p>
-						<select name="time">
+						<select name="callTime" required="required">
 							<option value="">상담시간</option>
 							<option value="anytime">아무때나</option>
 							<option value="09:00-10:00">09:00-10:00</option>
@@ -88,7 +90,7 @@
 						</select>
 					</p>
 					<p class="agc_chk_p">
-						<input name="privacy" type="checkbox"> <label>[필수] 개인정보 수집 및 마케팅 활용 동의</label> <a>자세히보기</a>
+						<input name="privacy" required="required" type="checkbox"> <label>[필수] 개인정보 수집 및 마케팅 활용 동의</label> <a>자세히보기</a>
 					</p>
 					<button type="submit">간편 상담 신청하기</button>
 				</form>
@@ -99,6 +101,84 @@
 </div><!-- agc_inq_pop -->
 <script>
 
+	$(function(){
+
+		$(".phone-number-check").on('keydown', function(e){
+			// 숫자만 입력받기
+			var trans_num = $(this).val().replace(/-/gi,'');
+			var k = e.keyCode;
+
+			if(trans_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) ))
+			{
+				e.preventDefault();
+			}
+		}).on('blur', function(){ // 포커스를 잃었을때 실행합니다.
+			if($(this).val() == '') return;
+
+			// 기존 번호에서 - 를 삭제합니다.
+			var trans_num = $(this).val().replace(/-/gi,'');
+
+			// 입력값이 있을때만 실행합니다.
+			if(trans_num != null && trans_num != '')
+			{
+				// 총 핸드폰 자리수는 11글자이거나, 10자여야 합니다.
+				if(trans_num.length==11 || trans_num.length==10)
+				{
+					// 유효성 체크
+					var regExp_ctn = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+					if(regExp_ctn.test(trans_num))
+					{
+						// 유효성 체크에 성공하면 하이픈을 넣고 값을 바꿔줍니다.
+						trans_num = trans_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3");
+						$(this).val(trans_num);
+					}
+					else
+					{
+						alert("유효하지 않은 전화번호 입니다.");
+						$(this).val("");
+						$(this).focus();
+					}
+				}
+				else
+				{
+					alert("유효하지 않은 전화번호 입니다.");
+					$(this).val("");
+					$(this).focus();
+				}
+			}
+		});
+
+		$(".number-check").on('keydown', function(e) {
+
+			var trans_num = $(this).val().replace(/-/gi,'');
+			var k = e.keyCode;
+
+			if(trans_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) ))
+			{
+				e.preventDefault();
+			}
+		}).on('blur', function() { // 포커스를 잃었을때 실행합니다.
+			if ($(this).val() == '') {
+				return;
+			} else {
+				var num = $(this).val();
+
+				if (num != null && num != '') {
+
+					if ($.isNumeric(num) == false) {
+
+
+						alert('숫자만 입력해주세요.');
+
+						$(this).val('');
+
+					}
+				}
+			}
+
+		});
+
+	});
 </script>
 { # footer }
 
