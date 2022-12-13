@@ -69,43 +69,50 @@
 			<img src="/data/skin/mobile/moment_C/svg/images/inq_logo.svg" alt="">
 		</div><!-- agc_pop_img -->
 		<div class="agc_pop_text">
-			<h4>브레인랩 간편 상담 신청하기</h4>
-			<h5>브레인랩 전문 상담사가  1:1 상담을 위해 대기중입니다</h5>
+			<h4>{labType} 간편 상담 신청하기</h4>
+			<h5>{labType} 전문 상담사가  1:1 상담을 위해 대기중입니다</h5>
 			<div class="agc_pop_form">
-				<form>
-					<p><input type="text" placeholder="이름"></p>
-					<p><input type="text" placeholder="전화번호 ‘-’ 없이 입력해주세요"></p>
-					<p><input type="text" placeholder="나이"></p>
+				<form name="frmWrite" id="frmWrite" action="/board/board_ps.php" method="post" enctype="multipart/form-data" class="frmWrite">
+					<input type="hidden" name="bdId" value="qa"/>
+					<input type="hidden" name="sno" value="3" />
+					<input type="hidden" name="mode" value="write"/>
+					<input type="hidden" name="subject" value="{labType}에 상담신청이 접수되었습니다."/>
+					<input type="hidden" name="labType" value="{labType}"/>
+					<input type="hidden" name="subSubject" value="{labType}"/>
+					<input type="hidden" name="contents" value="접수내용보기"/>
+	    			<input type="hidden" name="returnUrl" value="{lab}"/>
+                    <!--{? gd_is_login()}-->
+					<p><input type="text" name="writerNm" placeholder="이름" required="required" value="{memNm}" readonly></p>
+					<!--{:}-->
+					<p><input type="text" name="writerNm" placeholder="이름" required="required"></p>
+					<!--{/}-->
+					<p><input type="text" name="writerMobile" class="phone-number-check" placeholder="전화번호 ‘-’ 없이 입력해주세요" required="required"></p>
+					<p><input type="text" name="writerAge" class="number-check" placeholder="나이" required="required"></p>
 					<p>
-						<select>
-							<option>성별</option>
-							<option>남자</option>
-							<option>여자</option>
+						<select name="writerSex" required="required">
+							<option value="">성별</option>
+							<option value="male">남자</option>
+							<option value="female">여자</option>
 						</select>
 					</p>
 					<p>
-						<select>
-							<option>상담시간</option>
-							<option>아무때나</option>
-							<option>09:00-10:00</option>
-							<option>10:00-11:00</option>
-							<option>11:00-12:00</option>
-							<option>13:00-14:00</option>
-							<option>14:00-15:00</option>
-							<option>15:00-16:00</option>
-							<option>16:00-17:00</option>
-							<option>17:00-18:00</option>
+						<select name="callTime" required="required">
+							<option value="">상담시간</option>
+							<option value="anytime">아무때나</option>
+							<option value="09:00-10:00">09:00-10:00</option>
+							<option value="10:00-11:00">10:00-11:00</option>
+							<option value="11:00-12:00">11:00-12:00</option>
+							<option value="13:00-14:00">13:00-14:00</option>
+							<option value="14:00-15:00">14:00-15:00</option>
+							<option value="15:00-16:00">15:00-16:00</option>
+							<option value="16:00-17:00">16:00-17:00</option>
+							<option value="17:00-18:00">17:00-18:00</option>
 						</select>
 					</p>
-					<div class="agc_chk_p">
-						<input type="checkbox" />
-						<label>[필수] 개인정보 수집 및 마케팅 활용 동의</label> <a>자세히보기</a>
-						<div class="agc_inq_agr">
-							<h3>개인정보 수집 및 마케팅 활용정책</h3>
-							<p>개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책개인정보 수집 및 마케팅 활용정책</p>
-						</div><!-- agc_inq_agr -->
-					</div>
-					<button>간편 상담 신청하기</button>
+					<p class="agc_chk_p">
+						<input name="privacy" required="required" type="checkbox"> <label>[필수] 개인정보 수집 및 마케팅 활용 동의</label> <a>자세히보기</a>
+					</p>
+					<button type="submit">간편 상담 신청하기</button>
 				</form>
 			</div>
 		</div><!-- agc_pop_form -->
