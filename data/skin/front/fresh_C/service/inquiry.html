@@ -64,8 +64,11 @@
 					<input type="hidden" name="subSubject" value="{labType}"/>
 					<input type="hidden" name="contents" value="접수내용보기"/>
 	    			<input type="hidden" name="returnUrl" value="{lab}"/>
-
+                    <!--{? gd_is_login()}-->
+					<p><input type="text" name="writerNm" placeholder="이름" required="required" value="{memNm}" readonly>{memNm}</p>
+					<!--{:}-->
 					<p><input type="text" name="writerNm" placeholder="이름" required="required"></p>
+					<!--{/}-->
 					<p><input type="text" name="writerMobile" class="phone-number-check" placeholder="전화번호 ‘-’ 없이 입력해주세요" required="required"></p>
 					<p><input type="text" name="writerAge" class="number-check" placeholder="나이" required="required"></p>
 					<p>
