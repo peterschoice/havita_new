@@ -1,6 +1,4 @@
-<?php if($bdList['cfg']['bdId'] == 'qa') {
-
-    gd_debug($req) ?>
+<?php if($bdList['cfg']['bdId'] == 'qa') {?>
 
 <div class="page-header js-affix">
     <h3>상담 리스트 관리
