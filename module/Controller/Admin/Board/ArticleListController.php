@@ -97,6 +97,10 @@ class ArticleListController extends \Controller\Admin\Controller
                             $arrWhere[] = " callTime = '" . $req['callTime'] . "' ";
                         }
 
+                        if($req['replyStatus'] != null) {
+                            $arrWhere[] = " replyStatus = '" . $req['replyStatus'] . "' ";
+                        }
+
                         $getData = $articleListAdmin->getList(true,$req['pageNum'],0,$arrWhere);
                     } else {
                         $getData = $articleListAdmin->getList(true, $req['pageNum']);
