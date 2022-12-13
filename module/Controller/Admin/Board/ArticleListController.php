@@ -101,6 +101,28 @@ class ArticleListController extends \Controller\Admin\Controller
                             $arrWhere[] = " replyStatus = '" . $req['replyStatus'] . "' ";
                         }
 
+                        if($req['searchField'] != null) {
+                            switch ($req['searchField']) {
+
+                                case 'writerNm' :
+                                    $arrWhere[] = "writerNm LIKE concat('%','".$req['searchWord']."','%')";
+                                    break;
+
+                                case 'writerAge' :
+                                    $arrWhere[] = "writerAge = '".$req['searchWord']."' ";
+                                    break;
+
+                                case 'writerMobile' :
+                                    $arrWhere[] = "writerMobile = '".$req['searchWord']."' ";
+                                    break;
+
+                                case 'answerContents' :
+                                    $arrWhere[] = "answerContents LIKE concat('%','".$req['searchWord']."','%')";
+                                    break;
+
+                            }
+                        }
+
                         $getData = $articleListAdmin->getList(true,$req['pageNum'],0,$arrWhere);
                     } else {
                         $getData = $articleListAdmin->getList(true, $req['pageNum']);
