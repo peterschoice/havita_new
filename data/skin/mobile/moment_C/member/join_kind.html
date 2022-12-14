@@ -1,0 +1,31 @@
+{*** join_kind | member/join_kind.php ***}
+
+{ # header }
+
+<style type="text/css">
+	.member_cont{ padding:20px; border:0;}
+	.member_cont h3{ font-size:20px; font-weight:Bold; color:#333; text-align:center; margin-bottom:20px;}
+	.agc_login_msg{ font-size:14px; color:#57595A !important; text-align:center; margin-bottom:10px;}
+
+	.member_cont hr{ margin:45px 0; border:0; border-top:1px solid #F3F3F3;}
+	.member_cont .agc_join_btn{ display:block; text-align:center; width:100%; height:50px; line-height:48px; background-color:#333; border-color:#333; font-size:14px !important; font-weight:normal !important; border-radius:5px !important; color:#fff;}
+</style>
+
+<div class="content_box">
+	<div class="member_wrap">
+		<!-- //member_tit -->
+		<div class="member_cont">
+			<h3>회원가입</h3>
+			<p class="agc_login_msg">카카오톡으로 간편하게 가입하세요</p>
+			<!--{? useKakaoLogin}-->
+			<a href="#" class="btn_kakao_login js_btn_kakao_login" data-kakao-type="login" data-return-url="{=kakaoReturnUrl}"><img src="../images/kakao_btn2.png" alt=""></a>
+			<!--{/}-->
+
+			<hr>
+
+			<a href="../member/join_method.php" class="agc_join_btn">일반 회원 가입</button>
+		</div>
+	</div>
+</div>
+
+{ # footer }
