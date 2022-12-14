@@ -35,7 +35,7 @@
 
 	.agc_gnb{}
 	.agc_gnb ul{ overflow:Hidden;}
-	.agc_gnb ul li{ float:left; width:25%;}
+	.agc_gnb ul li{ float:left; width:33.33%;}
 	.agc_gnb ul li a{ display:block; text-align:center; font-size:14px; color:#57595A; line-height:40px;}
 
 	#wrap nav .nav_bg_box .nav_box .nav_iscroll_box{ padding:10px; box-sizing:border-box;}
@@ -96,9 +96,9 @@
 			</div><!-- agc_head_menu -->
 			<ul class="agc_hm_con agc_shm3 ">
 				<li><a href="/service/inquiry.php">브레인랩</a></li>
+				<li><a href="/servcie/inquiry.php?lab=beauty">뷰티랩</a></li>
 				<li><a href="/goods/goods_view.php?goodsNo=1000000001">리버랩</a></li>
 				<li><a href="/goods/goods_view.php?goodsNo=1000000002">조인트랩</a></li>
-				<li><a href="/main/html.php?htmid=service/inquiry_bck.html">뷰티랩</a></li>
 			</ul>
 
 			<!--{ ? gCurrentPageName != 'main/index' }-->
@@ -141,10 +141,14 @@
 			<!-- 네비게이터 -->
 			<div class="agc_gnb">
 				<ul>
-					<li><a href="../member/login.php">로그인</a></li>
-					<li><a href="../main/html.php?htmid=member/join_kind.html">회원가입</a></li>
-					<li><a href="/order/cart.php">장바구니</a></li>
-					<li><a href="/member/login.php">마이페이지</a></li>
+					<!--{ ? gd_is_login() === false }-->
+					<li><a href="../member/login.php">{=__('로그인')}</a></li>
+					<li><a href="/member/join_kind.php">{=__('회원가입')}</a></li>
+					<li><a href="../mypage/index.php">{=__('마이페이지')}</a></li>
+					<!--{ : }-->
+					<li><a href="../member/logout.php">{=__('로그아웃')}</a></li>
+					<li><a href="../mypage/index.php">{=__('마이페이지')}</a></li>
+					<!--{ / }-->
 				</ul>
 			</div><!-- agc_gnb -->
 			<div class="nav_iscroll_box">
@@ -160,6 +164,10 @@
 								<p>브레인랩</p>
 							</li>
 							<li>
+								<a href="/service/inquiry.php?lab=beauty"><img src="../../images/btl.png" alt=""></a>
+								<p>뷰티랩</p>
+							</li>
+							<li>
 								<a href="/goods/goods_view.php?goodsNo=1000000001"><img src="../../images/nav_rr.png" alt=""></a>
 								<p>리버랩</p>
 							</li>
@@ -167,10 +175,7 @@
 								<a href="/goods/goods_view.php?goodsNo=1000000002"><img src="../../images/nav_jr.png" alt=""></a>
 								<p>조인트랩</p>
 							</li>
-							<li>
-								<a href="/main/html.php?htmid=service/inquiry_bck.html"><img src="../../images/btl.png" alt=""></a>
-								<p>뷰티랩</p>
-							</li>
+
 						</ul>
 					</div><!-- agc_nav_cate -->
 
@@ -181,9 +186,9 @@
 								<p class="agc_lnba">전체 상품</p>
 								<ul class="agc_lnb2">
 									<li><a href="/service/inquiry.php">브레인랩</a></li>
+									<li><a href="/service/inquiry.php?lab=beauty">뷰티랩</a></li>
 									<li><a href="/goods/goods_view.php?goodsNo=1000000001">리버랩</a></li>
 									<li><a href="/goods/goods_view.php?goodsNo=1000000002">조인트랩</a></li>
-									<li><a href="/main/html.php?htmid=service/inquiry_bck.html">뷰티랩</a></li>
 								</ul>
 							</li>
 							<li class="agc_lnb1"><a href="/board/list.php?bdId=magazine" class="agc_lnba">매거진</a></li>
