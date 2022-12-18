@@ -284,7 +284,6 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
                 }
 
                 if ($kakaoType == 'join_method') {
-                    gd_debug(11111);
                     $logger->channel('kakaoLogin')->info('kakao id applink success');
                     $js = "
                             if (typeof(window.top.layerSearchArea) == 'object') {
