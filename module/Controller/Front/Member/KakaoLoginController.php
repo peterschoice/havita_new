@@ -31,6 +31,7 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
 
         $kakaoType=null;
 
+
         try {
             $functionName = 'popup';
             if(gd_is_skin_division()) {
@@ -47,6 +48,9 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
 
             //state 값을 이용해 분기처리
             $kakaoType= $state['kakaoType'];
+
+            gd_debug($kakaoType);
+
             //returnUrl 추출
             $returnURLFromAuth = gd_isset(rawurldecode($state['returnUrl']), $request->get()->get('returnUrl'));
             // saveAutologin
