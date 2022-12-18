@@ -31,8 +31,6 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
 
         $kakaoType=null;
 
-        gd_debug(1111111);
-
         try {
             $functionName = 'popup';
             if(gd_is_skin_division()) {
@@ -49,9 +47,6 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
 
             //state 값을 이용해 분기처리
             $kakaoType= $state['kakaoType'];
-
-
-
             //returnUrl 추출
             $returnURLFromAuth = gd_isset(rawurldecode($state['returnUrl']), $request->get()->get('returnUrl'));
             // saveAutologin
@@ -292,11 +287,11 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
                     $logger->channel('kakaoLogin')->info('kakao id applink success');
                     $js = "
                             if (typeof(window.top.layerSearchArea) == 'object') {
-                                parent.location.href='../';
+                                parent.location.href='../join_agreement.php';
                             } else if (window.opener === null) {
-                                location.href='../';
+                                location.href='../join_agreement.php';
                             } else {
-                                opener.location.href='../';self.close();
+                                opener.location.href='../join_agreement.php';self.close();
                             }
                         ";
                     $this->js($js);
@@ -316,23 +311,23 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
                                         ";
                     $this->js($js);
                 }
-                gd_debug(1111);
+                gd_debug(111111);
                 $js = "
                     if (typeof(window.top.layerSearchArea) == 'object') {
                             if (confirm('" . __('가입되지 않은 회원정보입니다. 회원가입을 진행하시겠습니까?') . "')) {
-                                parent.location.href = '../';
+                                parent.location.href = '../join_agreement.php';
                             } else {
                                 parent.location.reload();
                             }
                         } else if (window.opener === null) {
                             if (confirm('" . __('가입되지 않은 회원정보입니다. 회원가입을 진행하시겠습니까?') . "')) {
-                                location.href = '../';
+                                location.href = '../join_agreement.php';
                             } else {
                                 location.href='" . gd_isset($returnURLFromAuth, '../../main/index.php') . "';
                             }
                         } else {
                            if (confirm('" . __('가입되지 않은 회원정보입니다. 회원가입을 진행하시겠습니까?') . "')) {
-                                opener.location.href = '../';
+                                opener.location.href = '../join_agreement.php';
                                 self.close();
                            }else {
                                 opener.location.href = '" . gd_isset($returnURLFromAuth, '../../main/index.php') . "';
