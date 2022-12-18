@@ -292,11 +292,11 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
                     $logger->channel('kakaoLogin')->info('kakao id applink success');
                     $js = "
                             if (typeof(window.top.layerSearchArea) == 'object') {
-                                parent.location.href='../join_agreement.php';
+                                parent.location.href='../';
                             } else if (window.opener === null) {
-                                location.href='../join_agreement.php';
+                                location.href='../';
                             } else {
-                                opener.location.href='../join_agreement.php';self.close();
+                                opener.location.href='../';self.close();
                             }
                         ";
                     $this->js($js);
@@ -320,19 +320,19 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
                 $js = "
                     if (typeof(window.top.layerSearchArea) == 'object') {
                             if (confirm('" . __('가입되지 않은 회원정보입니다. 회원가입을 진행하시겠습니까?') . "')) {
-                                parent.location.href = '../join_agreement.php';
+                                parent.location.href = '../';
                             } else {
                                 parent.location.reload();
                             }
                         } else if (window.opener === null) {
                             if (confirm('" . __('가입되지 않은 회원정보입니다. 회원가입을 진행하시겠습니까?') . "')) {
-                                location.href = '../join_agreement.php';
+                                location.href = '../';
                             } else {
                                 location.href='" . gd_isset($returnURLFromAuth, '../../main/index.php') . "';
                             }
                         } else {
                            if (confirm('" . __('가입되지 않은 회원정보입니다. 회원가입을 진행하시겠습니까?') . "')) {
-                                opener.location.href = '../join_agreement.php';
+                                opener.location.href = '../';
                                 self.close();
                            }else {
                                 opener.location.href = '" . gd_isset($returnURLFromAuth, '../../main/index.php') . "';
