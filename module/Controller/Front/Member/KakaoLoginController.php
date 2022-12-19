@@ -311,7 +311,7 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
                                         ";
                     $this->js($js);
                 }
-                gd_debug(111111);
+
                 $js = "
                     if (typeof(window.top.layerSearchArea) == 'object') {
                             if (confirm('" . __('가입되지 않은 회원정보입니다. 회원가입을 진행하시겠습니까?') . "')) {
