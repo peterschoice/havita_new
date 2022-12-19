@@ -24,6 +24,8 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
 {
     public function index()
     {
+        exit;
+
         $request = \App::getInstance('request');
         $session = \App::getInstance('session');
         $logger = \App::getInstance('logger');
