@@ -24,7 +24,6 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
 {
     public function index()
     {
-        exit;
 
         $request = \App::getInstance('request');
         $session = \App::getInstance('session');
@@ -289,9 +288,11 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
                     $logger->channel('kakaoLogin')->info('kakao id applink success');
                     $js = "
                             if (typeof(window.top.layerSearchArea) == 'object') {
-                                parent.location.href='../join_agreement.php';
+                               // parent.location.href='../join_agreement.php';
+                               parent.location.href='../join_ok.php';
                             } else if (window.opener === null) {
-                                location.href='../join_agreement.php';
+                                // location.href='../join_agreement.php';
+                                location.href='../join_ok.php';
                             } else {
                                 opener.location.href='../join_agreement.php';self.close();
                             }
