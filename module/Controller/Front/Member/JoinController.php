@@ -27,7 +27,6 @@ class JoinController extends \Bundle\Controller\Front\Member\JoinController
     public function index()
     {
 
-        gd_debug('11111');
         $logger = \App::getInstance('logger');
         $request = \App::getInstance('request');
         $session = \App::getInstance('session');
@@ -54,6 +53,7 @@ class JoinController extends \Bundle\Controller\Front\Member\JoinController
         $thirdPartyProfile = $paycoProfile = $naverProfile = $kakaoProfile = [];
         $naverLoginPolicy = gd_policy('member.naverLogin');
         $kakaoLoginPolicy = gd_policy('member.kakaoLogin');
+        gd_debug($kakaoLoginPolicy);
         $appleLoginPolicy = gd_policy('member.appleLogin');
 
         if ($session->has(\Component\Godo\GodoPaycoServerApi::SESSION_USER_PROFILE)) {
