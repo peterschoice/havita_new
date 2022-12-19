@@ -48,6 +48,7 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
 
             //state 값을 이용해 분기처리
             $kakaoType= $state['kakaoType'];
+            gd_debug($request);
             //returnUrl 추출
             $returnURLFromAuth = gd_isset(rawurldecode($state['returnUrl']), $request->get()->get('returnUrl'));
             // saveAutologin
