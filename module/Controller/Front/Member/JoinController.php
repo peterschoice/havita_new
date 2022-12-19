@@ -192,6 +192,7 @@ class JoinController extends \Bundle\Controller\Front\Member\JoinController
             $fixFront = '';
         }
 
+        gd_debug($kakaoProfile);
         $this->setData('kakaoProfile',$kakaoProfile);
         $this->setData('countryPhone', $countryPhone);
         $this->setData('DateYear', $DateYear);
