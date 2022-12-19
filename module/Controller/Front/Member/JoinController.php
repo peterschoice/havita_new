@@ -74,7 +74,6 @@ class JoinController extends \Bundle\Controller\Front\Member\JoinController
             $scripts[] = 'gd_naver.js';
         } else if($session->has(\Component\Godo\GodoKakaoServerApi::SESSION_USER_PROFILE) && $kakaoLoginPolicy['useFl'] === 'y') {
             $kakaoProfile = $session->get(\Component\Godo\GodoKakaoServerApi::SESSION_USER_PROFILE);
-            gd_debug($kakaoProfile);
             $kakaoProfile['nickname'] = $kakaoProfile['properties']['nickname'];
             $kakaoProfile['email'] = $kakaoProfile['kakao_account']['email'];
             //@formatter:off
@@ -192,6 +191,8 @@ class JoinController extends \Bundle\Controller\Front\Member\JoinController
             $DateDay[$fixFront.$k] = $fixFront.$k;
             $fixFront = '';
         }
+
+        $this->setData('kakaoProfile',$kakaoProfile);
         $this->setData('countryPhone', $countryPhone);
         $this->setData('DateYear', $DateYear);
         $this->setData('DateYearMarri', $DateYearMarri);
