@@ -1,0 +1,193 @@
+{*** 회원가입(정보입력) | member/join.php ***}
+{ # header }
+<style type="text/css">
+	.join{ padding:40px 20px 80px;}
+	.join h3{ font-size:20px; font-weight:Bold; color:#333; text-align:center; margin-bottom:20px;}
+	.join .h3_desc{ font-size:14px; font-weight:Bold; color:#ff0000; text-align:right; margin-bottom:20px;}
+	.agc_login_msg{ font-size:14px; color:#57595A !important; text-align:center; margin-bottom:10px;}
+
+	.join .join_content_box .join_content{ padding:0;}
+	.join_view .tit,
+	.join_view_other .tit{ display:none;}
+	.join .input_title{ display:none;}
+
+	.input_wrap{ padding:0 0 20px !important;}
+	.input_wrap .input_content{ display:block; width:100%;}
+
+	.input_wrap .input_content input[type=text],
+	.input_wrap .input_content input[type=password],
+	.input_wrap .input_content input[type=email]{ width:100%; height:50px !important; line-height:48px !important; font-size:14px; color:#888; margin:0 0 0 !important; border:1px solid #ddd !important; border-radius:5px;}
+	.input_wrap .email_select{ height:50px !important; line-height:48px !important; font-size:14px; color:#888; margin:0 0 0 !important; border:1px solid #ddd !important; border-radius:5px;}
+
+	.agc_join_msg{ text-align:right; font-size:12px; margin:5px 0 0; color:#57595A;}
+
+	.input_wrap .input_content .zipcode_box input{ margin-bottom:10px !important;}
+	.zipcode_btn{ height:50px; line-height:48px; padding:0 10px; font-size:14px; border-radius:5px; border:1px solid #ddd; color:#333; background:none;}
+
+	.inp_sel select{ height:50px !important; line-height:48px !important; font-size:14px; color:#888; margin:0 0 0 !important; border:1px solid #ddd !important; border-radius:5px;}
+
+	.join .join_btn_box{ padding:0; margin-top:40px;}
+	.join_ok_btn{ display:block; height:50px; line-height:48px; background-color:#333; color:#fff; border-color:#333; font-size:14px; border-radius:5px; padding:0 10px; }
+</style>
+
+<div class="join" id="memberjoin">
+	<h3>회원가입</h3>
+    <p class="h3_desc">모든 항목은 필수입니다</p>
+	{=gd_debug(data)}
+	<form id="formJoin" name="formJoin" method="post" action="../member/member_ps.php">
+		<input type="hidden" name="rncheck" value="{data.rncheck}"/>
+		<input type="hidden" name="dupeinfo" value="{data.dupeinfo}"/>
+		<input type="hidden" name="pakey" value="{data.pakey}"/>
+		<input type="hidden" name="adultFl" value="{data.adultFl}">
+		<input type="hidden" name="foreigner" value="{data.foreigner}"/>
+		<input type="hidden" name="mode" value="join"/>
+		<div class="join_content_box">
+			<div class="join_content" >
+				<!-- 회원가입/정보 기본정보 -->{=includeWidget('member/_join_view.html')}<!-- 회원가입/정보 기본정보 -->
+				<!-- 회원가입/정보 사업자정보 -->{=includeWidget('member/_join_view_business.html')}<!-- 회원가입/정보 사업자정보 -->
+				<!-- 회원가입/정보 부가정보 -->{=includeWidget('member/_join_view_other.html')}<!-- 회원가입/정보 부가정보 -->
+			</div>
+			<div class="join_btn_box">
+				<button class="join_ok_btn" type="button" id="btnConfirm" value="{=__('확인')}">회원 가입하기</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+    var paycoProfile = {paycoProfile};
+    var naverProfile = {naverProfile};
+    var thirdPartyProfile = {thirdPartyProfile};
+    var kakaoProfile = {kakaoProfile};
+    $(document).ready(function () {
+        var $formJoin = $('#formJoin');
+
+
+        $(':text:first', $formJoin).focus();
+
+        $('#btnCancel', $formJoin).click(function (e) {
+            top.location.href = '/';
+            e.preventDefault();
+        });
+
+        $('#btnPostcode').click(function (e) {
+            e.preventDefault();
+            $('#address-error, #addressSub-error').remove();
+            $(':text[name=address], :text[name=addressSub]').removeClass('error c_red');
+            gd_postcode_search('zonecode', 'address', 'zipcode');
+        });
+
+        $('#btnCompanyPostcode').click(function (e) {
+            e.preventDefault();
+            $('#comAddress-error, #comAddressSub-error').remove();
+            $(':text[name=comAddress], :text[name=comAddressSub]').removeClass('error c_red');
+            gd_postcode_search('comZonecode', 'comAddress', 'comZipcode');
+        });
+
+        <!--{?joinField.businessinfo.use == 'y'}-->
+        $(':radio[name="memberFl"]').change(function () {
+            var $businessinfo = $('.businessinfo');
+            if (this.value == 'business') {
+                $businessinfo.removeClass('dn');
+                $businessinfo.find('input, select').removeClass('ignore');
+            } else {
+                $businessinfo.addClass('dn');
+                $businessinfo.find('input, select').addClass('ignore');
+            }
+        });
+        $(':radio[name="memberFl"]:checked').trigger('change');
+        <!--{/}-->
+
+        <!--{? (joinField.marriFl.use == 'y' && joinField.marriDate.use == 'y') || joinField.birthDt.use == 'y' }-->
+        function sendDateData(year, month, type) {
+            var dayType = '';
+            var params = {
+                year: year,
+                month: month,
+            };
+            $.ajax('../share/date_select_json.php', {
+                data: params,
+                method: "POST",
+                success: function (data) {
+                    if (data !='' && data != null) {
+                        if (type == 'marry') {
+                            dayType = 'marriDay';
+                        }else {
+                            dayType = 'birthDay';
+                        }
+                        $('#'+dayType).empty();
+                        $('#'+dayType).append(data);
+                    }
+                }
+            });
+        }
+        <!--{/}-->
+
+        <!--{? joinField.marriFl.use == 'y' && joinField.marriDate.use == 'y'}-->
+        $(':radio[name="marriFl"]').change(function () {
+            var $marridateinfo = $('.marridateinfo');
+            if (this.value == 'y') {
+                $marridateinfo.removeClass('dn');
+            } else {
+                $marridateinfo.addClass('dn');
+                $('#marriYear option:eq(0)').prop('selected', true);
+                $('#marriMonth option:eq(0)').prop('selected', true);
+                $('#marriDay option:eq(0)').prop('selected', true);
+            }
+        });
+
+        $('#marriYear').change(function () {
+            var marriMonthVal = $('#marriMonth').val();
+            if (marriMonthVal != '') {
+                sendDateData($('#marriYear').val(), $('#marriMonth').val(), 'marry');
+            }
+        });
+        $('#marriMonth').change(function () {
+            var marriYearVal = $('#marriYear').val();
+            if (marriYearVal != '') {
+                sendDateData($('#marriYear').val(), $('#marriMonth').val(), 'marry');
+            }
+        });
+        <!--{/}-->
+
+        <!--{? joinField.birthDt.use == 'y'}-->
+        $('#birthYear').change(function () {
+            var birthMonthVal = $('#birthMonth').val();
+            if ( birthMonthVal != '') {
+                sendDateData($('#birthYear').val(), $('#birthMonth').val(), 'birth');
+            }
+        });
+        $('#birthMonth').change(function () {
+            var birthYearVal = $('#birthYear').val();
+            if ( birthYearVal != '') {
+                sendDateData($('#birthYear').val(), $('#birthMonth').val(), 'birth');
+            }
+        });
+        <!--{/}-->
+
+        gd_select_email_domain('email');
+
+        gd_member2.init($formJoin);
+
+        setTimeout(function(){
+            $('#memId').focusout()
+            $('#email').focusout();
+        },1);
+
+        $('#btnConfirm').click({form: $formJoin}, gd_member2.save);
+
+        $('#birthYears').initSelectDateFormat();
+        $('#marriYears').initSelectDateFormat();
+    });
+
+
+    /**
+     * 회원가입시 Exception 발생하는 경우 회원가입 버튼 복원
+     */
+    function callback_not_disabled()
+    {
+        $('.join_ok_btn').prop("disabled", false);
+        $('.join_ok_btn em').html("{=__('회원가입')}");
+    }
+</script>
+{ # footer }
