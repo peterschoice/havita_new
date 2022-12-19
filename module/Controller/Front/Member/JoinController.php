@@ -26,6 +26,8 @@ class JoinController extends \Bundle\Controller\Front\Member\JoinController
 {
     public function index()
     {
+
+        gd_debug('11111');
         $logger = \App::getInstance('logger');
         $request = \App::getInstance('request');
         $session = \App::getInstance('session');
