@@ -53,7 +53,6 @@ class JoinController extends \Bundle\Controller\Front\Member\JoinController
         $thirdPartyProfile = $paycoProfile = $naverProfile = $kakaoProfile = [];
         $naverLoginPolicy = gd_policy('member.naverLogin');
         $kakaoLoginPolicy = gd_policy('member.kakaoLogin');
-        gd_debug($kakaoLoginPolicy);
         $appleLoginPolicy = gd_policy('member.appleLogin');
 
         if ($session->has(\Component\Godo\GodoPaycoServerApi::SESSION_USER_PROFILE)) {
@@ -75,6 +74,7 @@ class JoinController extends \Bundle\Controller\Front\Member\JoinController
             $scripts[] = 'gd_naver.js';
         } else if($session->has(\Component\Godo\GodoKakaoServerApi::SESSION_USER_PROFILE) && $kakaoLoginPolicy['useFl'] === 'y') {
             $kakaoProfile = $session->get(\Component\Godo\GodoKakaoServerApi::SESSION_USER_PROFILE);
+            gd_debug($kakaoProfile);
             $kakaoProfile['nickname'] = $kakaoProfile['properties']['nickname'];
             $kakaoProfile['email'] = $kakaoProfile['kakao_account']['email'];
             //@formatter:off
