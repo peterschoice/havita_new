@@ -7,38 +7,34 @@
         <input type="button" id="btnWrite" class="btn btn-red" onclick="btnWrite('<?= $req['bdId'] ?>');" value="등록">
     <?php } ?>
 </div>
-<div class="table-title gd-help-manual">게시글 관리</div>
+<div class="table-title gd-help-manual">상담글 관리</div>
 <form name="frmSearch" id="frmSearch" action="article_list.php" class="frmSearch js-form-enter-submit">
     <input type="hidden" id="boardListSort" name="boardListSort" value="<?=$boardListSort?>"/>
+    <input type="hidden" id="bdId" name="bdId" value="qa"/>
     <input type="hidden" id="isShow" name="isShow" value="<?=$isShow?>"/>
     <input type="hidden" id="listType" name="listType" value="<?=$listType?>"/>
     <div class="search-detail-box">
         <table class="table table-cols">
             <tr>
-                <th class="width-xs">게시판</th>
+                <th class="width-md">상담가능시간</th>
                 <td class="width-3xl"<?php if ($isShow == 'n') echo 'colspan="3"'; ?>>
-                    <?php if (!gd_is_provider()) { ?>
-                        <select name="bdId" id="bdId" class="form-control width-lg">
+                     <select name="callTime" id="callTime" class="form-control width-lg">
+                             <option value="">전체보기</option>
                             <?php
-                            if (isset($boards) && is_array($boards)) {
-                                foreach ($boards as $val) {
+                                $callTimes = array('아무때나','09:00-10:00','10:00-11:00','11:00-12:00','13:00-14:00','14:00-15:00','15:00-16:00','16:00-17:00','17:00-18:00');
+                                foreach ($callTimes as $callTime) {
                                     ?>
                                     <option
-                                        value="<?= $val['bdId'] ?>" <?php if ($val['bdId'] == $bdList['cfg']['bdId'])
-                                        echo "selected='selected'" ?> data-bdReplyStatusFl="<?=$val['bdReplyStatusFl']?>" data-bdEventFl="<?=$val['bdEventFl']?>" data-bdGoodsPtFl="<?=$val['bdGoodsPtFl']?>" data-bdGoodsFl="<?=$val['bdGoodsFl']?>"><?= $val['bdNm'] . '(' . $val['bdId'] . ')' ?></option>
+                                        value="<?php echo $callTime ?>" <?php if ($callTime == $req['callTime'])
+                                        echo "selected='selected'" ?>> <?php echo $callTime ?></option>
                                     <?php
-                                }
                             }
                             ?>
                         </select>
-                    <?php } else { ?>
-                        <?= $bdList['cfg']['bdNm'] ?> (<?= $bdList['cfg']['bdId'] ?>)
-                        <input type="hidden" name="bdId" value="<?= $bdList['cfg']['bdId'] ?>"/>
-                    <?php } ?>
 
                 </td>
                 <?php if($isShow != 'n') { ?>
-                <th class="width-xs">말머리</th>
+                <th class="width-md">상품구매</th>
                 <td>
                     <div class="form-inline">
                         <?= gd_isset($bdList['categoryBox'], '-'); ?>
@@ -47,7 +43,7 @@
                 <?php } ?>
             </tr>
             <tr>
-                <th><?php if ($isShow == 'n') echo '신고'; ?>일자</th>
+                <th><?php if ($isShow == 'n') echo '신고'; ?>상담신청/진행일</th>
                 <td colspan="3">
                     <div class="form-inline">
                         <?php if($isShow == 'n') { ?>
@@ -55,16 +51,16 @@
                         <?php } else { ?>
                         <select name="searchDateFl" class="form-control">
                             <option value="regDt" <?php if ($req['searchDateFl'] == 'regDt') echo 'selected' ?>>
-                                등록일
+                                신청일
                             </option>
                             <option value="modDt" <?php if ($req['searchDateFl'] == 'modDt') echo 'selected' ?>>
-                                수정일
+                                진행일
                             </option>
                         </select>
                         <?php } ?>
 
                         <div class="input-group js-datepicker">
-                            <input type="text" class="form-control width-xs" name="rangDate[]"
+                            <input type="text" class="form-control width-md" name="rangDate[]"
                                    value="<?= $req['rangDate'][0]; ?>">
                                     <span class="input-group-addon">
                                         <span class="btn-icon-calendar">
@@ -73,7 +69,7 @@
                         </div>
                         ~
                         <div class="input-group js-datepicker">
-                            <input type="text" class="form-control width-xs" name="rangDate[]"
+                            <input type="text" class="form-control width-md" name="rangDate[]"
                                    value="<?= $req['rangDate'][1]; ?>">
                                     <span class="input-group-addon">
                                         <span class="btn-icon-calendar">
@@ -84,16 +80,20 @@
                     </div>
                 </td>
             </tr>
+
             <?php if($isShow != 'n') { ?>
             <tr class="js-if-bdGoodsPtFl">
                 <?php  if ($bdList['cfg']['bdAnswerStatusFl'] == 'y' || $bdList['cfg']['bdReplyStatusFl'] == 'y') { ?>
-                    <th>답변상태</th>
+                    <th>처리상태</th>
                     <td class="width-xl">
                         <div class="form-inline">
                             <select name="replyStatus" class="form-control">
                                 <option value="">=전체=</option>
-                                <?php foreach ($board::REPLY_STATUS_LIST as $key => $val) { ?>
-                                    <option value="<?= $key ?>" <?php if ($req['replyStatus'] == $key) echo 'selected' ?>><?= $val ?></option>
+
+                                <?php
+                                    $replyStatus = array('상담 신청중','상담 진행중','상담 완료','상담 취소','상담 지연');
+                                    for($i = 0;$i<5;$i++){?>
+                                    <option value="<?= $i ?>" <?php if ($req['replyStatus'] == $i) echo 'selected' ?>><?= $replyStatus[$i]; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -119,7 +119,7 @@
                     <td colspan="3">
                         <div class="form-inline">
                             <div class="input-group js-datepicker">
-                                <input name="rangEventDate[]" class="form-control width-xs" type="text"
+                                <input name="rangEventDate[]" class="form-control width-md" type="text"
                                        value="<?= gd_isset($req['rangEventDate'][0]) ?>"
                                        placeholder="수기입력 가능">
                                 <span class="input-group-addon">
@@ -129,7 +129,7 @@
                             </div>
                             ~
                             <div class="input-group js-datepicker">
-                                <input name="rangEventDate[]" class="form-control width-xs" type="text"
+                                <input name="rangEventDate[]" class="form-control width-md" type="text"
                                        value="<?= gd_isset($req['rangEventDate'][1]) ?>"
                                        placeholder="수기입력 가능">
                                 <span class="input-group-addon">
@@ -141,41 +141,46 @@
                     </td>
                 </tr>
             <?php } ?>
+                <tr>
+                    <th class="width-md">성별</th>
+                    <td class="width-3xl"<?php if ($isShow == 'n') echo 'colspan="3"'; ?>>
+                        <select name="writerSex" id="writerSex" class="form-control width-lg">
+                            <option value="">전체보기</option>
+                                   <option
+                                   value="male" <?php if($req['writerSex'] == 'male')
+                                    echo "selected='selected'" ?>> 남자</option>
+                            <option
+                                    value="female" <?php if($req['writerSex'] == 'female')
+                                echo "selected='selected'" ?>>여자</option>
+
+                        </select>
+
+                    </td>
+                </tr>
+
+
             <tr>
                 <th>검색어</th>
                 <td colspan="3">
                     <div class="form-inline">
                         <select class="form-control" name="searchField">
-                            <option value="subject" <?php if ($req['searchField'] == 'subject') echo 'selected' ?>>
-                                제목
-                            </option>
                             <option
-                                value="writerNick" <?php if ($req['searchField'] == 'writerNick') echo 'selected' ?>>닉네임
+                                    value="">선택
                             </option>
                             <option
                                 value="writerNm" <?php if ($req['searchField'] == 'writerNm') echo 'selected' ?>>이름
                             </option>
                             <option
-                                value="writerId" <?php if ($req['searchField'] == 'writerId') echo 'selected' ?>>아이디
+                                value="writerAge" <?php if ($req['searchField'] == 'writerAge') echo 'selected' ?>>
+                                나이
                             </option>
                             <option
-                                value="contents" <?php if ($req['searchField'] == 'contents') echo 'selected' ?>>내용
+                                value="writerMobile" <?php if ($req['searchField'] == 'writerMobile') echo 'selected' ?>>
+                                전화번호
                             </option>
                             <option
-                                value="subject_contents" <?php if ($req['searchField'] == 'subject_contents') echo 'selected' ?>>
-                                제목+내용
-                            </option>
-                            <option class="js-if-bdGoodsFl"
-                                value="goodsNm" <?php if ($req['searchField'] == 'goodsNm') echo 'selected' ?>>
-                                상품명
-                            </option>
-                            <option class="js-if-bdGoodsFl"
-                                value="goodsNo" <?php if ($req['searchField'] == 'goodsNo') echo 'selected' ?>>
-                                상품코드
-                            </option>
-                            <option class="js-if-bdGoodsFl"
-                                value="goodsCd" <?php if ($req['searchField'] == 'goodsCd') echo 'selected' ?>>
-                                자체상품코드
+                                value="adminMemo" <?php if ($req['searchField'] == 'adminMemo') echo 'selected' ?>>
+                                관리자메모
                             </option>
 
                         </select>
@@ -195,13 +200,13 @@
 <?php if(!gd_is_provider()) { ?>
 <ul class="nav nav-tabs mgb0" role="tablist">
     <li role="presentation" <?=$isShow == 'y' && $listType == 'board' ? 'class="active"' : ''?>>
-        <a href="../board/article_list.php?isShow=y&bdId=<?=$req['bdId']?>&listType=board">일반 게시물</a>
+        <a href="../qa/article_list.php?isShow=y&bdId=<?=$req['bdId']?>&listType=board">일반 게시물</a>
     </li>
     <li role="presentation" <?=$isShow == 'n' && $listType == 'board' ? 'class="active"' : ''?>>
-        <a href="../board/article_list.php?isShow=n&bdId=<?=$req['bdId']?>&listType=board">신고 게시물</a>
+        <a href="../qa/article_list.php?isShow=n&bdId=<?=$req['bdId']?>&listType=board">신고 게시물</a>
     </li>
     <li role="presentation" <?=$isShow == 'n' && $listType == 'memo' ? 'class="active"' : ''?>>
-        <a href="../board/article_list.php?isShow=n&bdId=<?=$req['bdId']?>&listType=memo">신고 댓글</a>
+        <a href="../qa/article_list.php?isShow=n&bdId=<?=$req['bdId']?>&listType=memo">신고 댓글</a>
     </li>
 </ul>
 <?php } ?>
@@ -244,10 +249,13 @@
                 <th class="width-sm">관리</th>
             <?php } else { ?>
             <th class="width-sm">작성자</th>
-            <th class="width-sm">작성일</th>
-            <th class="width-2xs">조회</th>
+            <th class="width-sm">신청일</th>
+            <th class="width-sm">상담일</th>
+            <th class="width-sm">성별</th>
+            <th class="width-sm">나이</th>
+            <th class="width-sm">연락처</th>
             <?php  if ($bdList['cfg']['bdAnswerStatusFl'] == 'y' || $bdList['cfg']['bdReplyStatusFl'] == 'y') { ?>
-                <th class="width-sm">답변상태</th>
+                <th class="width-sm">처리상태</th>
             <?php } ?>
             <?php if ($bdList['cfg']['bdRecommendFl'] == 'y') { ?>
                 <th class="width-2xs"> 추천</th>
@@ -264,7 +272,9 @@
         </thead>
         <?php
         if (gd_array_is_empty($bdList['list']) === false) {
+
             foreach ($bdList['list'] as $val) {
+
                 if ($bdList['cfg']['bdGoodsFl'] === 'y' && $bdList['cfg']['bdGoodsType'] === 'goods') {
                     //게시글 관리에서 노출되는 상품이미지 항목의 노이미지 노출을 위해 imageStorage가 없는 경우 local 셋팅
                     if(!gd_isset($val['imageStorage'])){
@@ -334,10 +344,17 @@
                         <?= $val['writer'] . $aTagClose ?>
                     </td>
                     <td><?= $val['regDate'] ?></td>
-                    <td><?= number_format($val['hit']) ?></td>
+                    <td><?= $val['modDt'] ?></td>
+                    <td><?= $val['writerSex'] ?></td>
+                    <td><?= $val['writerAge'] ?></td>
+                    <td><?= $val['writerMobile'] ?></td>
                     <?php  if ($bdList['cfg']['bdAnswerStatusFl'] == 'y' || $bdList['cfg']['bdReplyStatusFl'] == 'y') { ?>
                         <td>
-                            <?= $val['replyStatusText'] ?>
+                            <?php
+                            $replyStatus = array('상담 신청중','상담 진행중','상담 완료','상담 취소','상담 지연');
+                            for($i = 0;$i<5;$i++){?>
+                              <?php if ($val['replyStatus'] == $i) echo $replyStatus[$i]; ?>
+                            <?php } ?>
                         </td>
                     <?php } ?>
                     <?php if ($bdList['cfg']['bdRecommendFl'] == 'y') { ?>
@@ -451,7 +468,7 @@
             location.href = "article_view.php?bdId=" + bdId + "&sno=" + sno;
         }
         function articleViewPopup(sno) {
-            window.open("../board/article_view.php?bdId=<?=$bdList['cfg']['bdId']?>&popupMode=yes&mode=reply&sno=" + sno, "<?=$bdList['cfg']['bdNm']?> 게시판", 'width=1200,height=750,scrollbars=yes,resizable=yes');
+            window.open("../qa/article_view.php?bdId=<?=$bdList['cfg']['bdId']?>&popupMode=yes&mode=reply&sno=" + sno, "<?=$bdList['cfg']['bdNm']?> 게시판", 'width=1200,height=750,scrollbars=yes,resizable=yes');
         }
 
         $(document).ready(function () {

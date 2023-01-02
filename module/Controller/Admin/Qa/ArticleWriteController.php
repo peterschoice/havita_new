@@ -11,7 +11,7 @@
  * @copyright ⓒ 2016, NHN godo: Corp.
  * @link http://www.godo.co.kr
  */
-namespace Bundle\Controller\Admin\Board;
+namespace Controller\Admin\Qa;
 
 use App;
 use Component\Board\BoardTemplate;
@@ -40,33 +40,33 @@ class ArticleWriteController extends \Controller\Admin\Controller
             if(gd_is_provider() === false){
 
                 if($req['mode'] == 'reply') {
-                    $this->callMenu('board', 'board', 'boardReply');
+                    $this->callMenu('qa', 'qa', 'qaModify');
                 }
                 else if($req['mode'] == 'modify'){
-                    $this->callMenu('board', 'board', 'boardModify');
+                    $this->callMenu('qa', 'qa', 'qaModify');
                 }
                 else {
-                    $this->callMenu('board', 'board', 'boardWrite');
+                    $this->callMenu('qa', 'qa', 'qaModify');
                 }
 
-//                $this->callMenu('board', 'board', 'manager');
+                 $this->callMenu('qa', 'qa', 'qaModify');
             }
             else {
                 if (Request::get()->get('bdId') == Board::BASIC_GOODS_REIVEW_ID) {
 
                     if($req['mode'] == 'reply') {
-                        $this->callMenu('board', 'board', 'goodsReviewReply');
+                        $this->callMenu('qa', 'qa', 'qaModify');
                     }
                     else if($req['mode'] == 'modify'){
-                        $this->callMenu('board', 'board', 'goodsReviewModify');
+                        $this->callMenu('qa', 'qa', 'qaModify');
                     }
 
                 } else {
                     if($req['mode'] == 'reply') {
-                        $this->callMenu('board', 'board', 'goodsQaReply');
+                        $this->callMenu('qa', 'qa', 'qaModify');
                     }
                     else if($req['mode'] == 'modify'){
-                        $this->callMenu('board', 'board', 'goodsQaModify');
+                        $this->callMenu('qa', 'qa', 'qaModify');
                     }
                 }
             }
@@ -166,6 +166,6 @@ class ArticleWriteController extends \Controller\Admin\Controller
         if ($req['popupMode'] === 'yes') {
             $this->getView()->setDefine('layout', 'layout_blank.php');
         }
-        $this->getView()->setPageName('board/article_write.php');
+        $this->getView()->setPageName('qa/article_write.php');
     }
 }
