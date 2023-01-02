@@ -24,7 +24,7 @@ use Framework\Debug\Exception\AlertOnlyException;
 use Request;
 use Session;
 
-class ArticleListController extends \Controller\Admin\Board\ArticleListController
+class ArticleListController extends \Controller\Admin\Controller
 {
     /**
      * Description
@@ -68,6 +68,7 @@ class ArticleListController extends \Controller\Admin\Board\ArticleListControlle
             if(gd_is_provider()) {
                 if($req['listType'] == 'board') {
                     $getData = $articleListAdmin->getList(true, $req['pageNum'], null, ['g.scmNo = ' . \Session::get('manager.scmNo')], $arrInclude);
+
                 } else {
                     $getData = $articleListAdmin->getReportMemoList();
                 }
@@ -77,12 +78,14 @@ class ArticleListController extends \Controller\Admin\Board\ArticleListControlle
                 else {
                     $pageId = 'goodsReviewList';
                 }
-                $this->callMenu('board', 'board', $pageId);
+                $this->callMenu('qa', 'qa', $pageId);
             }
             else {
-                $this->callMenu('board', 'board', 'boardList');
+                $this->callMenu('qa', 'qa', 'qaList');
                 if($req['listType'] == 'board') {
+
                     $getData = $articleListAdmin->getList(true, $req['pageNum']);
+
                 } else {
                     $getData = $articleListAdmin->getReportMemoList();
                 }
@@ -104,7 +107,6 @@ class ArticleListController extends \Controller\Admin\Board\ArticleListControlle
 
         // 보안이슈 : 게시글 관리 정렬 값 체크
         $boardListSort = implode(STR_DIVISION, array_keys($bdList['sort']));
-
         // --- 관리자 디자인 템플릿
         $this->setData('page', $getData['pagination']);
         $this->setData('bdList', $bdList);
@@ -112,6 +114,8 @@ class ArticleListController extends \Controller\Admin\Board\ArticleListControlle
         $this->setData('req', gd_htmlspecialchars($articleListAdmin->req));
         $this->setData('boards', $boardList);
         $this->setData('boardListSort', $boardListSort);
-        $this->getView()->setPageName('board/article_list.php');
+        $this->getView()->setPageName('qa/article_list.php');
+
+
     }
 }

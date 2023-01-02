@@ -1,5 +1,5 @@
 <script>
-    var bdId = '<?=$req['bdId']?>';
+    var bdId = 'qa';
     var replyStatusComplete='<?=$replyStatusComplete?>';
     $(document).ready(function(){
         $('#frmWrite').find('[name=queryString]').val(getUrlVars());
@@ -72,7 +72,7 @@ include '_article_detail.php';
             </td>
         </tr>
         <tr>
-            <th>답변 상태</th>
+            <th>처리상태</th>
             <td>
                 <select name="replyStatus" class="form-control">
                     <?php
