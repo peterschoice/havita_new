@@ -36,8 +36,6 @@ class JoinController extends \Bundle\Controller\Front\Member\JoinController
 
         $request = \App::getInstance('request');
 
-        gd_debug($request->post()->all());
-
         \Component\Member\MemberValidation::checkJoinToken($request->post()->all());
         \Component\Member\MemberValidation::checkJoinAgreement($request->post()->get('agreementInfoFl'), $request->post()->get('privateApprovalFl'));
 

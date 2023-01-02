@@ -52,6 +52,7 @@
 			<img src="../images/pop_img.jpg" alt="">
 		</div><!-- agc_pop_img -->
 		<div class="agc_pop_text">
+
 			<h4>{labType} 간편 상담 신청하기</h4>
 			<h5>{labType} 전문 상담사가  1:1 상담을 위해 대기중입니다</h5>
 			<div class="agc_pop_form">
@@ -69,13 +70,13 @@
 					<!--{:}-->
 					<p><input type="text" name="writerNm" placeholder="이름" required="required"></p>
 					<!--{/}-->
-					<p><input type="text" name="writerMobile" class="phone-number-check" placeholder="전화번호 ‘-’ 없이 입력해주세요" required="required"></p>
-					<p><input type="text" name="writerAge" class="number-check" placeholder="나이" required="required"></p>
+					<p><input type="text" name="writerMobile" class="phone-number-check" placeholder="전화번호 ‘-’ 없이 입력해주세요" <!--{? gd_is_login()}--> value="{writerMobile}" <!--{/}--> required="required"></p>
+					<p><input type="text" name="writerAge" class="number-check" placeholder="나이"  <!--{? gd_is_login()}--> value="{writerAge}" <!--{/}--> required="required"></p>
 					<p>
 						<select name="writerSex" required="required">
 							<option value="">성별</option>
-							<option value="male">남자</option>
-							<option value="female">여자</option>
+							<option value="male" <!--{? gd_is_login() && writerSex == 'm'}--> selected <!--{/}--> >남자</option>
+							<option value="female" <!--{? gd_is_login() && writerSex == 'w'}--> selected <!--{/}--> >여자</option>
 						</select>
 					</p>
 					<p>

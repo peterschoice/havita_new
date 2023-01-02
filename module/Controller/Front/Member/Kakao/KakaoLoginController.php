@@ -2,6 +2,7 @@
 
 namespace Controller\Front\Member\Kakao;
 
+use Bundle\Component\Member\MemberDAO;
 use Component\Member\MemberSnsService;
 use Component\Member\MyPage;
 use Component\Godo\GodoKakaoServerApi;
@@ -13,6 +14,7 @@ use Framework\Debug\Exception\AlertRedirectException;
 use Framework\Debug\Exception\AlertCloseException;
 use Framework\Debug\Exception\AlertRedirectCloseException;
 use Component\Member\MemberSnsDAO;
+use App;
 
 /**
  * 카카오 로그인 및 회원가입
@@ -42,7 +44,6 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
 
             //state 값 decode
             $state = json_decode($request->get()->get('state'), true);
-
             $logger->info(sprintf('state : %s', $request->get()->get('state')));
             $logger->info(sprintf('state code : %s', $request->get()->get('code')));
 
@@ -51,7 +52,7 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
             //returnUrl 추출
             $returnURLFromAuth = gd_isset(rawurldecode($state['returnUrl']), $request->get()->get('returnUrl'));
             // saveAutologin
-            $saveAutoLogin = $state['saveAutoLogin'];
+            $saveAutoLogin = $state['saveAutoLogin'] = 'y';
 
             //카카오계정 로그인 팝업창에서 동의안함 클릭시 팝업창 닫힘 처리
             if($request->get()->get('error') == 'access_denied'){
@@ -260,6 +261,74 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
                             }
                         ";
                     $this->js($js);
+                } else {
+                // kakao 아이디가 아닌 경우 다음과 같이 회원가입시킨다.
+                        //gd_debug($userInfo);exit;
+                        $member['memId'] = $userInfo['id'].'@kakao';
+                        $member['memNm'] = $userInfo['kakao_account']['name'];
+                        $member['email'] = $userInfo['kakao_account']['email'];
+                        $member['calendarFl'] = strtolower(substr($userInfo['kakao_account']['birthday_type'],0,1));
+                        $member['simpleJoinFl'] = 'push';
+                        $member['under14ConsentFl'] = $member['appFl'] = 'y';
+                        $member['age_range'] = $userInfo['kakao_account']['age_range'];
+                        if(substr($userInfo['kakao_account']['gender'],0,1) == 'm'){
+                            $member['sexFl'] = 'm';} else { $member['sexFl'] = 'w';}
+                        $member['regDt'] = $member['entryDt'] = date('Y-d-m h:i:s', time());
+                        $member['cellPhone'] = '0'.explode(' ',$userInfo['kakao_account']['phone_number'])[1];
+                        $member['birthDt'] = $userInfo['kakao_account']['birthyear'].'-'.substr($userInfo['kakao_account']['birthday'], 0, 2).'-'.substr($userInfo['kakao_account']['birthday'], 2, 2);
+                        $memberDao = new MemberDAO();
+                        $memId = $memberDao->insertMember($member);
+                        //$memberSnsService->joinBySns($memId, $userInfo['id'], $properties['access_token'], 'kakao');
+                        $memberSnsDao = new MemberSnsDAO();
+                        $memberSnsDao->insertMemberSns($memId, $userInfo['id'],'y', $properties['access_token'], 'kakao', 'godo');
+
+                        $memberSnsService->saveToken($userInfo['id'], $properties['access_token'], $properties['refresh_token']);
+                        $memberSnsService->loginBySns($userInfo['id']);
+
+                        $loginReturnUrl = $returnURLFromAuth;
+
+                        $controller = App::getController();
+                        $this->isFront = $controller->getRootDirecotory() == 'admin' ? 'front' : $controller->getRootDirecotory();
+
+                       if ($this->isFront == 'front') {
+
+                           $js = "
+                            alert('회원가입되셨습니다.');
+                            //location.href='../../member/login_ps.php';
+                             
+                            if (typeof(window.top.layerSearchArea) == 'object') {
+                                parent.location.href='" . $loginReturnUrl . "';
+                            } else if (window.opener === null) {
+                                location.href='" . $loginReturnUrl . "';
+                            } else {
+                                opener.location.href='" . $loginReturnUrl . "';
+                                self.close();
+                            }
+                            self.close();
+                    
+                        ";
+                       } else {
+                           $js = "
+                            alert('회원가입되셨습니다.');
+                            //location.href='../../member/login_ps.php';
+                          
+                            if (typeof(window.top.layerSearchArea) == 'object') {
+                                parent.location.href='" . $loginReturnUrl . "';
+                                
+                            } else if (window.opener === null) {
+                                location.href='" . $loginReturnUrl . "';
+                            } else {
+                                opener.location.href='" . $loginReturnUrl . "';
+                            
+                            }
+                            //self.close();
+                        ";
+                       }
+                    $this->js($js);
+
+
+
+
                 }
 
                 // 일반회원 카카오 아이디 연동 처리
@@ -313,9 +382,10 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
                     $this->js($js);
                 }
 
-                 $this->js($js);
 
-                        $js = "
+
+
+                $js = "
                     if (typeof(window.top.layerSearchArea) == 'object') {
                             if (confirm('" . __('가입되지 않은 회원정보입니다. 회원가입을 진행하시겠습니까?') . "')) {
                                 parent.location.href = '../join_agreement.php';
@@ -329,58 +399,51 @@ class KakaoLoginController extends \Bundle\Controller\Front\Member\Kakao\KakaoLo
                                 location.href='" . gd_isset($returnURLFromAuth, '../../main/index.php') . "';
                             }
                         } else {
-                             Kakao.Auth.authorize({
-			                  redirectUri: 'https://havita.co.kr/member/kakao/kakao_login.php',
-		                     });
-                              //parent.location.href = 'https://kauth.kakao.com/oauth/authorize?client_id=c089c8172def97eb00c07217cae17495&redirect_uri=https%3A%2F%2Fdevelopers.kakao.com%2Ftool%2Fdemo%2Foauth&response_type=code&auth_tran_id=_9ao2jkQNWmxorxrtqMJvFcTtBx4dV6oaFDaoRJpvf0Dla0FLqFz21aQb1ql&ka=sdk%2F2.1.0%20os%2Fjavascript%20sdk_type%2Fjavascript%20lang%2Fko-KR%20device%2FWin32%20origin%2Fhttps%253A%252F%252Fdevelopers.kakao.com&is_popup=false';
-              
+                           if (confirm('" . __('가입되지 않은 회원정보입니다. 회원가입을 진행하시겠습니까?') . "')) {
+                                opener.location.href = '../join_agreement.php';
+                                self.close();
+                           }else {
+                                opener.location.href = '" . gd_isset($returnURLFromAuth, '../../main/index.php') . "';
+                                self.close();
+                           }
                         }
                         ;";
                 $this->js($js);
 
-
             }
             // 카카오 로그인 팝업을 띄우는 케이스
+            $callbackUri = $request->getRequestUri();
+            \Logger::channel('kakaoLogin')->info('callbackUri 350 %s', $callbackUri);
 
-                $callbackUri = $request->getRequestUri();
-                \Logger::channel('kakaoLogin')->info('callbackUri 350 %s', $callbackUri);
+            $state = array();
+            if ($startLen = strpos($request->getRequestUri(), "?")) {
+                $requestUriArray = explode('&', substr($request->getRequestUri(), ($startLen + 1)));
+                \Logger::channel('kakaoLogin')->info('requestUriArray 354 %s', json_encode($requestUriArray));
 
-                $state = array();
-
-                if ($startLen = strpos($request->getRequestUri(), "?")) {
-                    $requestUriArray = explode('&', substr($request->getRequestUri(), ($startLen + 1)));
-                    \Logger::channel('kakaoLogin')->info('requestUriArray 354 %s', json_encode($requestUriArray));
-
-                    $kakaoTypeInRequestUri = $requestUriArray[0];
-                    $kakaoTypeToState = explode('=', $kakaoTypeInRequestUri);
-                    $state['kakaoType'] = $kakaoTypeToState[1];
-                    //returnUrl이 여러 개 있을 경우
-                    foreach ($requestUriArray as $key => $val) {
-                        $isReturnUrl = strstr($val, 'returnUrl');
-                        if ($isReturnUrl) {
-                            // 기존에 explode 를 = 을 기준으로 작업되어 returnUrl에 있는 파라미터 들의 = 까지 구분되어 주소가 수정되는 이슈로 str_replace 로 변경
-                            $returnUrlToState = str_replace('returnUrl=', '', $val);
-                            $state['returnUrl'] = $returnUrlToState;
-                            // 정상적인 returnUrl 인지 확인용 로그
-                            \Logger::channel('kakaoLogin')->info('returnUrlToState 359 %s', json_encode($returnUrlToState));
-                        }
+                $kakaoTypeInRequestUri = $requestUriArray[0];
+                $kakaoTypeToState= explode('=', $kakaoTypeInRequestUri);
+                $state['kakaoType'] = $kakaoTypeToState[1];
+                //returnUrl이 여러 개 있을 경우
+                foreach ($requestUriArray as $key => $val) {
+                    $isReturnUrl = strstr($val, 'returnUrl');
+                    if ($isReturnUrl) {
+                        // 기존에 explode 를 = 을 기준으로 작업되어 returnUrl에 있는 파라미터 들의 = 까지 구분되어 주소가 수정되는 이슈로 str_replace 로 변경
+                        $returnUrlToState = str_replace('returnUrl=','',$val);
+                        $state['returnUrl'] = $returnUrlToState;
+                        // 정상적인 returnUrl 인지 확인용 로그
+                        \Logger::channel('kakaoLogin')->info('returnUrlToState 359 %s', json_encode($returnUrlToState));
                     }
-                    $state['referer'] = $request->getReferer();
-                    if ($request->get()->get('saveAutoLogin') == 'y') $state['saveAutoLogin'] = 'y';
-                    $callbackUri = substr($request->getRequestUri(), 0, $startLen);
                 }
+                $state['referer'] = $request->getReferer();
+                if ($request->get()->get('saveAutoLogin') == 'y') $state['saveAutoLogin'] = 'y';
+                $callbackUri = substr($request->getRequestUri(), 0, $startLen);
+            }
+            $redirectUri = $request->getDomainUrl() . $callbackUri;
+            \Logger::channel('kakaoLogin')->info('Redirect URI is %s', $redirectUri);
 
-                $redirectUri = $request->getDomainUrl() . $callbackUri;
-
-                \Logger::channel('kakaoLogin')->info('Redirect URI is %s', $redirectUri);
-
-                $getCodeURL = $kakaoApi->getCodeURL($redirectUri, $state);
-
-                \Logger::channel('kakaoLogin')->info('Code URI is %s', $getCodeURL);
-
-                $this->redirect($getCodeURL);
-
-
+            $getCodeURL = $kakaoApi->getCodeURL($redirectUri, $state);
+            \Logger::channel('kakaoLogin')->info('Code URI is %s', $getCodeURL);
+            $this->redirect($getCodeURL);
         } catch (AlertRedirectException $e) {
             $logger->error($e->getTraceAsString());
             MemberUtil::logout();

@@ -184,6 +184,8 @@
                                     $sLink = '/member/member_list.php';
                                 } elseif ($val['adminMenuCode'] == 'board') {
                                     $sLink = '/board/board_list.php';
+                                } elseif ($val['adminMenuCode'] == 'qa') {
+                                    $sLink = '/board/article_list.php?bdId=qa&isShow=y&listType=board';
                                 } elseif ($val['adminMenuCode'] == 'promotion') {
                                     $sLink = '/promotion/coupon_list.php';
                                 } elseif ($val['adminMenuCode'] == 'design') {
@@ -200,8 +202,6 @@
                                     $sLink = '/statistics/visit_today.php';
                                 } elseif ($val['adminMenuCode'] == 'myapp') {
                                     $sLink = '/myapp/myapp.php';
-                                } elseif ($val['adminMenuCode'] == 'qa') {
-                                    $sLink = '/board/article_list.php?bdId=qa&isShow=y&listType=board';
                                 } else {
                                     $sLink = '/' . $val['adminMenuCode'] . '/index.php';
                                 }

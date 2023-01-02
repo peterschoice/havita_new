@@ -81,18 +81,18 @@
 					<input type="hidden" name="subSubject" value="{labType}"/>
 					<input type="hidden" name="contents" value="접수내용보기"/>
 	    			<input type="hidden" name="returnUrl" value="{lab}"/>
-                    <!--{? gd_is_login()}-->
+					<!--{? gd_is_login()}-->
 					<p><input type="text" name="writerNm" placeholder="이름" required="required" value="{memNm}" readonly></p>
 					<!--{:}-->
 					<p><input type="text" name="writerNm" placeholder="이름" required="required"></p>
 					<!--{/}-->
-					<p><input type="text" name="writerMobile" class="phone-number-check" placeholder="전화번호 ‘-’ 없이 입력해주세요" required="required"></p>
-					<p><input type="text" name="writerAge" class="number-check" placeholder="나이" required="required"></p>
+					<p><input type="text" name="writerMobile" class="phone-number-check" placeholder="전화번호 ‘-’ 없이 입력해주세요" <!--{? gd_is_login()}--> value="{writerMobile}" <!--{/}--> required="required"></p>
+					<p><input type="text" name="writerAge" class="number-check" placeholder="나이"  <!--{? gd_is_login()}--> value="{writerAge}" <!--{/}--> required="required"></p>
 					<p>
 						<select name="writerSex" required="required">
 							<option value="">성별</option>
-							<option value="male">남자</option>
-							<option value="female">여자</option>
+							<option value="male" <!--{? gd_is_login() && writerSex == 'm'}--> selected <!--{/}--> >남자</option>
+							<option value="female" <!--{? gd_is_login() && writerSex == 'w'}--> selected <!--{/}--> >여자</option>
 						</select>
 					</p>
 					<p>

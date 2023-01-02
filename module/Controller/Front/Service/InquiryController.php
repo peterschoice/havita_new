@@ -39,6 +39,13 @@ class InquiryController extends \Controller\Front\Controller
         $this->setData('lab',$lab);
 
         $member=\Session::get('member');
-        $this->setData('memNm',$member['memNm']);
+        /** @var  \Component\Member\Member $member */
+        $member2 = \App::load('\\Component\\Member\\Member');
+        $memberData = $member2->getMember($member['memNo'], 'memNo', 'memNm,memNo, memId, birthDt, sexFl, cellPhone');
+
+        $this->setData('memNm',$memberData['memNm']);
+        $this->setData('writerSex',$memberData['sexFl']);
+        $this->setData('writerMobile',$memberData['cellPhone']);
+        $this->setData('writerAge',(date("Y") - explode('-',$memberData['birthDt'])[0]));
     }
 }
