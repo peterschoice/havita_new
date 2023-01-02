@@ -47,22 +47,12 @@
 		<!-- //member_tit -->
 		<div class="member_cont">
 			<h3>로그인</h3>
+
 			<p class="agc_login_msg">카카오톡으로 간편하게 로그인 하세요</p>
 			<!--{? useKakaoLogin}-->
 			<a href="#" class="btn_kakao_login js_btn_kakao_login" data-kakao-type="login" data-return-url="{=kakaoReturnUrl}"><img src="../images/kakao_btn.png" alt=""></a>
-			<!--<a id="kakao-login-btn" href="javascript:loginWithKakao()">
-				<img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
-					 alt="카카오 로그인 버튼" />
-			</a>-->
-			<p id="token-result"></p>
 			<!--{/}-->
 
-			<div class="agc_mem_tab">
-				<ul>
-					<li class="agc_active"><p>일반회원</p></li>
-					<li><p>비회원 주문조회</p></li>
-				</ul>
-			</div><!-- agc_mem_tab -->
 
 			<div class="agc_mem_con agc_mc_1 agc_active">
 				<form id="formLogin" method="post" action="{loginActionUrl}">
@@ -70,6 +60,15 @@
 					<input type="hidden" id="returnUrl" name="returnUrl" value="{returnUrl}"/>
 					<input type="hidden" id="secretKey" name="secretKey" value="{secretKey}"/>
 					<input type="hidden" id="encryptFl" name="encryptFl" value="Y"/>
+
+
+					<div class="agc_mem_tab">
+						<ul>
+							<li class="agc_active"><p>일반회원</p></li>
+							<li><p>비회원 주문조회</p></li>
+						</ul>
+					</div><!-- agc_mem_tab -->
+
 					<div class="member_login_box">
 						<div class="login_input_sec">
 							<div>
@@ -144,65 +143,6 @@
 </div>
 <!-- //content_box -->
 
-<!--{? useKakaoLogin}-->
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
-		integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
-<script>
-	//Kakao.init('cc2e9b13ff743628b0d903b746248e8c'); // 사용하려는 앱의 JavaScript 키 입력
-</script>
-<!--{/}-->
-
-
-<!--{? useKakaoLogin}-->
-<script>
-
-	/**
-	 * KAKAO JS SDK init
-	 */
-	function setKakaoSdkInit(clientSecret)
-	{
-		// Kakao 객체가 이미 초기화 되어있다면 cleanup해주고 다시 init 해준다
-		// Kakao 객체가 중복으로 init되면 함수 실행시 에러 발생하는 현상 방지
-		if (Kakao.isInitialized()) {
-			Kakao.cleanup();
-		}
-		Kakao.init(clientSecret);
-	}
-
-	function loginWithKakao() {
-		//setKakaoSdkInit(clientSecret);
-		Kakao.Auth.authorize({
-			redirectUri: 'https://havita.co.kr/member/kakao/kakao_login.php',
-		});
-	}
-
-	// 아래는 데모를 위한 UI 코드입니다.
-	displayToken()
-
-	function displayToken() {
-		var token = getCookie('authorize-access-token');
-
-		if(token) {
-			Kakao.Auth.setAccessToken(token);
-			Kakao.Auth.getStatusInfo()
-					.then(function(res) {
-						if (res.status === 'connected') {
-							document.getElementById('token-result').innerText
-									= 'login success, token: ' + Kakao.Auth.getAccessToken();
-						}
-					})
-					.catch(function(err) {
-						Kakao.Auth.setAccessToken(null);
-					});
-		}
-	}
-
-	function getCookie(name) {
-		var parts = document.cookie.split(name + '=');
-		if (parts.length === 2) { return parts[1].split(';')[0]; }
-	}
-</script>
-<!--{/}-->
 
 <script type="text/javascript" src="../js/jquery/jquery.serialize.object.js"></script>
 <script type="text/javascript">
